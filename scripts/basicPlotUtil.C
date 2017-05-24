@@ -59,7 +59,7 @@ void plot2hist_stat(TH1* h1, TString leg1, TH1* h2, TString leg2, TString tagnam
         h1->Scale(1./h1->Integral());
         h2->Scale(1./h2->Integral());
     }
-    else h1->GetYaxis()->SetTitle("Number of toy throws");
+    else h1->GetYaxis()->SetTitle("Number of Events");
     h1->Sumw2();
     h2->Sumw2();
     double maxY = TMath::Max(h1->GetMaximum(),h2->GetMaximum());
@@ -112,3 +112,91 @@ void plot2hist_stat(TH1* h1, TString leg1, TH1* h2, TString leg2, TString tagnam
     }
 
 }
+
+ void plot3hist_stat(TH1* h1, TString leg1, TH1* h2, TString leg2, TH1* h3, TString leg3, TString tagname="", TString savename="", Bool_t isAreaNormalization ){
+        new TCanvas;
+        gStyle->SetOptStat(1111);
+        
+        titleStyle(h1);
+        Int_t ci;
+        ci = TColor::GetColor("#0072B2");
+        h1->SetLineColor(ci);
+        h1->SetLineWidth(3);
+        h1->Sumw2();
+        h2->Sumw2();
+        h3->Sumw2();
+        if(isAreaNormalization==true){
+            h1->GetYaxis()->SetTitle("Area normalization");
+            h1->Scale(1./h1->Integral());
+            h2->Scale(1./h2->Integral());
+            h3->Scale(1./h3->Integral());
+        }
+        else h1->GetYaxis()->SetTitle("Number of Events");
+        h1->Sumw2();
+        h2->Sumw2();
+        double maxY = TMath::Max(h1->GetMaximum(),h2->GetMaximum());
+        maxY = TMath::Max(maxY,h3->GetMaximum());
+        h1->GetYaxis()->SetRangeUser(0, maxY*1.6);
+        h1->SetName(leg1);
+        h1->Draw("hist");
+        
+        ci = TColor::GetColor("#D55E00");
+        h2->SetLineColor(ci);
+        h2->SetMarkerColor(ci);
+        h2->SetLineWidth(3);
+        h2->SetName(leg2);
+        
+        h2->Draw("hist sames");
+        
+        ci = TColor::GetColor("#000000");
+        h3->SetLineColor(ci);
+        h3->SetMarkerColor(ci);
+        h3->SetLineWidth(3);
+        h3->SetName(leg3);
+        
+        h3->Draw("hist sames");
+        
+        gPad->Update();
+        TPaveStats *st1 = (TPaveStats*)h1->GetListOfFunctions()->FindObject("stats");
+        st1->SetX1NDC(0.65);
+        st1->SetX2NDC(0.85);
+        ci = TColor::GetColor("#0072B2");
+        st1->SetTextColor(ci);
+        
+        
+        TPaveStats *st = (TPaveStats*)h2->GetListOfFunctions()->FindObject("stats");
+        st->SetX1NDC(0.42);
+        st->SetX2NDC(0.62);
+        ci = TColor::GetColor("#D55E00");
+        st->SetTextColor(ci);
+        
+        TPaveStats *st2 = (TPaveStats*)h3->GetListOfFunctions()->FindObject("stats");
+        st2->SetX1NDC(0.2);
+        st2->SetX2NDC(0.4);
+        ci = TColor::GetColor("#000000");
+        st2->SetTextColor(ci);
+        
+        double ypos = 0.05;
+        double xpos =0.09;
+        TLatex *   text2kpre = new TLatex(xpos,ypos,tagname);
+        text2kpre->SetTextAlign(11);
+        text2kpre->SetNDC(kTRUE);
+        ci = TColor::GetColor("#000000");
+        text2kpre->SetTextColor(ci);
+        text2kpre->SetTextFont(43);
+        text2kpre->SetTextSize(24);
+        text2kpre->SetLineWidth(3);
+        text2kpre->Draw();
+        
+        gPad->Update();
+        if(isAreaNormalization) {
+            gPad->Print("plots/"+savename+"_areanom.eps");
+            gPad->Print("plots/"+savename+"_areanom.C");
+        }
+        else {
+            gPad->Print("plots/"+savename+".eps");
+            gPad->Print("plots/"+savename+".C");
+        }
+        
+    }
+

@@ -392,14 +392,14 @@ C  Select Coherent pion model (Rein & Sehgal=0(default), Kartavtsev et al.=1
 CNEUT-COHEPI  0
 C
 C  CCQE Axial Mass (For simulation, must be set to: 1.01, 1.11, 1.21{default}. 1.31)
-NEUT-MAQE 1.21
+CNEUT-MAQE 1.21
 C
 C  CCQE Vector Mass (Default: 0.84)
 CNEUT-MVQE 0.84
 C
 C  CC1pi Vector Mass (Default: 0.84)
 
-NEUT-MVSPI 0.84
+CNEUT-MVSPI 0.84
 
 C  Single Pion Production Model (IFF)
 C  0: Rein-Seghal Model
@@ -409,21 +409,21 @@ C     Dependent on MASPI, BGSCL, CA5
 C  Must generate single pion total xsec for given
 C    MASPI, BGSCL, CA5, NRTYPE   
 
-NEUT-IFF 1
+CNEUT-IFF 1
 
 C  CC1pi Axial Mass 
-NEUT-MASPI 0.95
+CNEUT-MASPI 0.95
 
 C  Nonresonant background scaling
-NEUT-BGSCL 1.3
+CNEUT-BGSCL 1.3
 
 C  Rein-Seghal NRTYPE
 C  0: Electroproduction
 C  1: Neutrino-Production (default)
-NEUT-NRTYPE 1
+CNEUT-NRTYPE 1
 
 C  Graczyk and Sobczyk CA5(0) Parameter
-NEUT-CA5 1.01
+CNEUT-CA5 1.01
 
 C  CCQE Kappa Factor (Default: 1.0)
 CNEUT-KAPP 1.0
@@ -441,7 +441,7 @@ C          : 0x : Scaling to CCQE     ( same as 5.0.x )
 C          : 1x : Scaling to Spectrum func. with Dipole (prior to v5.1.2)
 C          : 2x : Scaling to Spectrum func. with BBBA05 (default from v5.1.2)
 C
-NEUT-MDLQE 402
+CNEUT-MDLQE 402
 C
 C
 C RAND : random seed
