@@ -1,0 +1,30 @@
+ NECARD : NUMBNDN =  8
+ NECARD : NUMBNDP =  8
+ NECARD : NUMFREP =  2
+ NECARD : NUMATOM =  16
+ NECARD : PFSURF =   0.224999994
+ NECARD : PFMAX  =   0.224999994
+ NECARD : VNUINI =  -0.0265650749
+ NECARD : VNUFIN =   0.
+ NECARD : IFORMLEN =  1
+ NECARD : ABSPIEMIT =  1
+ NECARD : NUSIM =  1
+ NECARD : FEFQE   =   1.
+ NECARD : FEFQEH  =   1.79999995
+ NECARD : FEFINEL =   1.
+ NECARD : FEFABS  =   1.10000002
+ NECARD : FEFCOH  =   1.
+ NECARD : FEFCX   =   1.
+ NECARD : FEFCXH  =   1.79999995
+ NECARD : FEFCXHF =   0.
+ NECARD : FEFQEHF =   1.
+ NECARD : FEFCOHF =   0.
+ NECARD : FEFCOUL =   0.
+ NECARD : IPILESSDCY =  1
+ NECARD : RPILESSDCY =   0.200000003
+
+ NUCLEON RESCATTERING card file you read is 
+ /home/cvson/nuicise/neut/cards/common/neut_common_test.card                                                                                                                                                                                                     
+ NUCRES : INPUTTED PARAMETER 
+ NUCRES : RESCAT   =  1 0: off, 1: on
+ NUCRES : XNUCFACT =   1.
