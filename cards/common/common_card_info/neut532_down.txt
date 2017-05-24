@@ -1,0 +1,68 @@
+Using Spectral Function for elastic events
+ NECARD : INPUTTED PARAMETER 
+ NECARD : CRSPATH= ./
+ NECARD : FERM   =  0
+ NECARD : PAUL   =  0
+ NECARD : NEFF   =  0
+ NECARD : MODL   =  1
+ NECARD : MODH   =  1
+ NECARD : KINH   =  1
+ NECARD : MODE   =  0
+ NECARD : COHEPI =  0
+ NECARD : PDF    =  12
+ NECARD : BODEK  =  1
+ NECARD : MDLQE  =  402
+ NECARD : MDLQEAF=  1
+ NECARD : MAQE   =   1.21000004
+ NECARD : MARSRES =   1.21000004
+ NECARD : MANFFRES=   0.949999988
+ NECARD : MVQE   =   0.839999974
+ NECARD : MVRSRES =   0.839999974
+ NECARD : MVNFFRES=   0.839999974
+ NECARD : KAPP   =   1.
+ NECARD : MACOH   =   1.
+ NECARD : R0COH   =   1.
+ NECARD : SCCFV     =   0.
+ NECARD : SCCFA     =   0.
+ NECARD : PFSF      =  -1.
+ NECARD :Generating RANDOM SEED
+ RANLUX LUXURY LEVEL SET BY RLUXGO : 3     P= 223
+ RANLUX INITIALIZED BY RLUXGO FROM SEEDS  1114751370           0           0
+ RM48 INITIALIZED: 366952645           0         0
+ ***********************************************
+ *****  Dummy RMARIN function was called.  *****
+ *****  This subroutine should not be used *****
+ *****  if you are trying to use tauola.   *****
+ ***********************************************
+ ======= CONFIGURATION FOR TARGET MATERIAL =======
+ NECARD : NUMBNDN =  8
+ NECARD : NUMBNDP =  8
+ NECARD : NUMFREP =  2
+ NECARD : NUMATOM =  16
+ NECARD : PFSURF =   0.224999994
+ NECARD : PFMAX  =   0.224999994
+ NECARD : VNUINI =  -0.0265650749
+ NECARD : VNUFIN =   0.
+ NECARD : IFORMLEN =  1
+ NECARD : FZMU2 =   0.0799999982
+ NECARD : ABSPIEMIT =  1
+ NECARD : NUSIM =  1
+ NECARD : QUIET =  0
+ NECARD : FEFQE   =   1.
+ NECARD : FEFQEH  =   1.79999995
+ NECARD : FEFINEL =   1.
+ NECARD : FEFABS  =   1.10000002
+ NECARD : FEFCOH  =   1.
+ NECARD : FEFCX   =   1.
+ NECARD : FEFCXH  =   1.79999995
+ NECARD : FEFCXHF =   0.
+ NECARD : FEFQEHF =   1.
+ NECARD : FEFCOHF =   0.
+ NECARD : FEFCOUL =   0.
+ NECARD : IPILESSDCY =  1
+ NECARD : RPILESSDCY =   0.200000003
+ NECARD : IFF = 0
+ NECARD : NRTYPE = 1
+ NECARD : CA5 =  1.00999999
+ NECARD : BGSCL =  1.
+
