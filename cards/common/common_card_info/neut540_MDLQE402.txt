@@ -1,0 +1,98 @@
+NEUT card file you read is /disk01/usr3/cvson/nuicise/neut/cards/common/neut_5.3.2_402_test.card                                                           
+ Using Spectral Function for elastic events
+ NECARD : INPUTTED PARAMETER 
+ NECARD : CRSPATH= ../crsdat/
+ NECARD : FERM   =            0
+ NECARD : PAUL   =            0
+ NECARD : NEFF   =            0
+ NECARD : MODL   =            1
+ NECARD : MODH   =            1
+ NECARD : KINH   =            1
+ NECARD : MODE   =            0
+ NECARD : COHEPI =            0
+ NECARD : DIFPI  =            0
+ NECARD : PDF    =           12
+ NECARD : BODEK  =            1
+ NECARD : MULT   =            0
+ NECARD : MDLQE  =          402
+ NECARD : MDLQEAF=            1
+ NECARD : MAQE   =    1.21000004    
+ NECARD : MARSRES =    1.21000004    
+ NECARD : MANFFRES=   0.949999988    
+ NECARD : MVQE   =   0.839999974    
+ NECARD : MVRSRES =   0.839999974    
+ NECARD : MVNFFRES=   0.839999974    
+ NECARD : KAPP   =    1.00000000    
+ NECARD : XMACOH   =    1.00000000    
+ NECARD : R0COH   =    1.00000000    
+ NECARD : A1COHerr   =    0.00000000    
+ NECARD : b1COHerr   =    0.00000000    
+ NECARD : XMADIF   =    1.10000002    
+ NECARD : NUCVOLDIF   =    7.00000000    
+ NECARD : SCCFV     =    0.00000000    
+ NECARD : SCCFA     =    0.00000000    
+ NECARD : FPQE      =    1.00000000    
+ NECARD : PFSF      =   -1.00000000    
+ NECARD :Generating RANDOM SEED
+ RANLUX LUXURY LEVEL SET BY RLUXGO : 3     P= 223
+ RANLUX INITIALIZED BY RLUXGO FROM SEEDS  1411514770           0           0
+ RM48 INITIALIZED: 579436745           0         0
+ ***********************************************
+ *****  Dummy RMARIN function was called.  *****
+ *****  This subroutine should not be used *****
+ *****  if you are trying to use tauola.   *****
+ ***********************************************
+ ======= CONFIGURATION FOR TARGET MATERIAL =======
+ NECARD : NUMBNDN =            8
+ NECARD : NUMBNDP =            8
+ NECARD : NUMFREP =            2
+ NECARD : NUMATOM =           16
+ NECARD : PFSURF =   0.224999994    
+ NECARD : PFMAX  =   0.224999994    
+ NECARD : VNUINI =   -2.65650749E-02
+ NECARD : VNUFIN =    0.00000000    
+ NECARD : IFORMLEN =            1
+ NECARD : FZMU2 =    7.99999982E-02
+ NECARD : ABSPIEMIT =            1
+ NECARD : NUSIM =            1
+ NECARD : QUIET =            0
+ NECARD : FEFQE   =    1.00000000    
+ NECARD : FEFQEH  =    1.79999995    
+ NECARD : FEFINEL =    1.00000000    
+ NECARD : FEFABS  =    1.10000002    
+ NECARD : FEFCOH  =    1.00000000    
+ NECARD : FEFCX   =    1.00000000    
+ NECARD : FEFCXH  =    1.79999995    
+ NECARD : FEFCXHF =    0.00000000    
+ NECARD : FEFQEHF =    1.00000000    
+ NECARD : FEFCOHF =    0.00000000    
+ NECARD : FEFCOUL =    0.00000000    
+ NECARD : FEFALL =    1.00000000    
+ NECARD : IPILESSDCY =            0
+ NECARD : RPILESSDCY =    0.00000000    
+ NECARD : IFF =           1
+ NECARD : NRTYPE =           1
+ NECARD : CA5 =   1.00999999    
+ NECARD : BGSCL =   1.29999995    
+ NECARD : IRADCORR =           0
+
+ NUCLEON RESCATTERING card file you read is /disk01/usr3/cvson/nuicise/neut/cards/common/neut_5.3.2_402_test.card                                                                                                                                                                                           
+ NUCRES : INPUTTED PARAMETER 
+ NUCRES : RESCAT   =            1  0: off, 1: on
+ NUCRES : XNUCFACT =    1.00000000    
+ NUCRES : NUCRESFLG=            1
+
+ NEUT(EVCT) card file you read is /disk01/usr3/cvson/nuicise/neut/cards/common/neut_5.3.2_402_test.card                                                           
+ NECARDEV : INPUTTED PARAMETER 
+ NECARDEV : NEV  =            5
+ NECARDEV : IDPT =           14
+ NECARDEV : MPOS =            2
+ NECARDEV : RAD =    100.000000    
+ NECARDEV : MDIR =            1
+ NECARDEV : DIR =    0.00000000       0.00000000       1.00000000    
+ NECARDEV : MPV  =            1
+ NECARDEV : PV  =    600.000000    
+Opening file neutvect_540alpha_MDLQE402.root
+Checking whether the file is already opened or not.
+root:/
+Opening file neutvect_540alpha_MDLQE402.root
