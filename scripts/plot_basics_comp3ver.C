@@ -2,7 +2,7 @@ void plot_basics_comp3ver(){
     gROOT->ProcessLine(".x rootlogon.C"); 
     gROOT->ProcessLine(".L basicPlotUtil.C");
     TString ipDir = "/home/cvson/disk/nuicise/neut/neut_5.4.0_alpha/src/neutsmpl/";
-    TFile *ffile = new TFile(ipDir+"basicplot_neut540.root");
+    /*TFile *ffile = new TFile(ipDir+"basicplot_neut540.root");
     TString vername = "NEUT 5.4.0"; 
   
      TFile *ffile1 = new TFile(ipDir+"basicplot_neut537.root");
@@ -11,7 +11,41 @@ void plot_basics_comp3ver(){
     TFile *ffile2 = new TFile(ipDir+"basicplot_neut532.root");
     TString vername2 = "NEUT 5.3.2";
    
-   TString savename ="comp_v540_v537_v532"; 
+   TString savename ="comp_v540_v537_v532";*/
+
+    /*TFile *ffile = new TFile(ipDir+"basicplot_neut540alpha_MDLQE02.root");
+    TString vername = "NEUT 5.4.0"; 
+  
+     TFile *ffile1 = new TFile(ipDir+"basicplot_neut537_MDLQE02.root");
+    TString vername1 = "NEUT 5.3.7";
+
+    TFile *ffile2 = new TFile(ipDir+"basicplot_neut532_MDLQE02.root");
+    TString vername2 = "NEUT 5.3.2";
+   
+   TString savename ="comp3_mdlqe02";*/
+
+    TFile *ffile = new TFile(ipDir+"basicplot_neut540alpha_MDLQE402_RS.root");
+    TString vername = "NEUT 5.4.0"; 
+  
+     TFile *ffile1 = new TFile(ipDir+"basicplot_neut537_MDLQE402_RS.root");
+    TString vername1 = "NEUT 5.3.7";
+
+    TFile *ffile2 = new TFile(ipDir+"basicplot_neut532_MDLQE402_RS.root");
+    TString vername2 = "NEUT 5.3.2";
+   
+   TString savename ="comp3_mdlqe402_rs";
+
+    /*TFile *ffile = new TFile(ipDir+"basicplot_neut532_common_down5142.root");
+    TString vername = "NEUT 5.3.2 RS"; 
+  
+     TFile *ffile1 = new TFile(ipDir+"basicplot_neut532_common_down5142_paul.root");
+    TString vername1 = "NEUT 5.3.2 RS Paul";
+
+    TFile *ffile2 = new TFile(ipDir+"basicplot_neut532_common_down5142_paul_nueff.root");
+    TString vername2 = "NEUT 5.3.2 Paul+NuEff";
+   
+   TString savename ="comp_v532_paul";*/
+ 
     TIter next(ffile->GetListOfKeys());
     TKey *key;
     Int_t nhist=0;

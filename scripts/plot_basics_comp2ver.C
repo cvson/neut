@@ -8,11 +8,43 @@ void plot_basics_comp2ver(){
     TString vername2 = "NEUT 5.3.2";
     TString savename ="comp_v540_v532_";*/
 
-	TFile *ffile = new TFile(ipDir+"basicplot_neut5142_common.root");
+    /* TFile *ffile = new TFile(ipDir+"basicplot_neut540.root");
+    TString vername = "NEUT 5.4.0, Spec. Func."; 
+    TFile *ffile2 = new TFile(ipDir+"basicplot_neut540alpha_MDLQE02.root");
+    TString vername2 = "NEUT 5.4.0, Fermi G.";
+    TString savename ="v540_mdlqe402_vs02_";*/
+
+    /*TFile *ffile = new TFile(ipDir+"basicplot_neut540.root");
+    TString vername = "NEUT 5.4.0, Graczyk-Sobczyk"; 
+    TFile *ffile2 = new TFile(ipDir+"basicplot_neut540alpha_MDLQE402_RS.root");
+    TString vername2 = "NEUT 5.4.0, Rein-Seghal";
+    TString savename ="v540_mdlqe402_gsvsrs_";*/
+
+    TFile *ffile = new TFile(ipDir+"basicplot_neut532.root");
+    TString vername = "NEUT 5.3.2, Graczyk-Sobczyk"; 
+    TFile *ffile2 = new TFile(ipDir+"basicplot_neut532_MDLQE402_RS.root");
+    TString vername2 = "NEUT 5.3.2, Rein-Seghal";
+    TString savename ="v532_mdlqe402_gsvsrs_";
+
+    /*TFile *ffile = new TFile(ipDir+"basicplot_neut5142_common.root");
     TString vername = "NEUT 5.1.4.2"; 
     TFile *ffile2 = new TFile(ipDir+"basicplot_neut532_common.root");
     TString vername2 = "NEUT 5.3.2";
-    TString savename ="comp_v5142_v532_common_";
+    TString savename ="comp_v5142_v532_common_";*/
+  
+    /*TFile *ffile = new TFile(ipDir+"basicplot_neut5142_common.root");
+    TString vername = "NEUT 5.1.4.2"; 
+    TFile *ffile2 = new TFile(ipDir+"basicplot_neut532_common_down5142.root");
+    TString vername2 = "NEUT 5.3.2, RS";
+    TString savename ="comp_v5142_v532down_common_";*/
+
+
+    /*TFile *ffile = new TFile(ipDir+"basicplot_neut532_common.root");
+    TString vername = "NEUT 5.3.2 BS, no piless"; 
+    TFile *ffile2 = new TFile(ipDir+"basicplot_neut532_common_down5142.root");
+    TString vername2 = "NEUT 5.3.2 RS";
+    TString savename ="comp_v532_common_";*/
+
  
     TIter next(ffile->GetListOfKeys());
     TKey *key;
