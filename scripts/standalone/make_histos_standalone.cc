@@ -8,13 +8,16 @@ using namespace std;
 
 void fill_histos(char *, char *, Double_t );
 
-void make_histos_standalone(){
-  	gSystem->Load("path/to/NEUT/neut_5.3.3/src/neutclass/neutvtx.so");
-  	gSystem->Load("path/to/NEUT/neut_5.3.3/src/neutclass/neutpart.so");
-  	gSystem->Load("path/to/NEUT/neut_5.3.3/src/neutclass/neutfsipart.so");
-  	gSystem->Load("path/to/NEUT/neut_5.3.3/src/neutclass/neutfsivert.so");
-  	gSystem->Load("path/to/NEUT/neut_5.3.3/src/neutclass/neutvect.so");
-	fill_histos("neut_output.root","analysed_output.root");	
+void make_histos_standalone(char *in_fname, char *out_fname){
+  	gSystem->Load("/home/cvson/nuicise/neut/neut_5.4.0_alpha/src/neutclass/neutnucfsistep.so");
+        gSystem->Load("/home/cvson/nuicise/neut/neut_5.4.0_alpha/src/neutclass/neutnucfsivert.so");	
+        gSystem->Load("/home/cvson/nuicise/neut/neut_5.4.0_alpha/src/neutclass/neutvtx.so");
+  	gSystem->Load("/home/cvson/nuicise/neut/neut_5.4.0_alpha/src/neutclass/neutpart.so");
+  	gSystem->Load("/home/cvson/nuicise/neut/neut_5.4.0_alpha/src/neutclass/neutfsipart.so");
+  	gSystem->Load("/home/cvson/nuicise/neut/neut_5.4.0_alpha/src/neutclass/neutfsivert.so");
+  	gSystem->Load("/home/cvson/nuicise/neut/neut_5.4.0_alpha/src/neutclass/neutvect.so");
+	//fill_histos("neut_output.root","analysed_output.root");	
+	fill_histos(in_fname,out_fname);
 }
 
 void fill_histos(char *in_fname, char *out_fname){  	
@@ -25,7 +28,7 @@ void fill_histos(char *in_fname, char *out_fname){
 		return;
   	}
   	// Link the branches of the file.
-  	TTree *tn = (TTree *)(f.Get("neuttree"));
+  	TTree *tn = (TTree*)(f->Get("neuttree"));
   	NeutVtx *nvtx = new NeutVtx();
   	tn->SetBranchAddress("vertexbranch",&nvtx);
   	NeutVect *nvect = new NeutVect();
@@ -56,9 +59,12 @@ void fill_histos(char *in_fname, char *out_fname){
 	// ***************************************** //
 
   	Double_t nevents = tn->GetEntries();
+	Long64_t iprintProcess;
+	iprintProcess = Long64_t(nevents/100.);
   	std::cout<<"nevents = "<<nevents<<std::endl;
   	for ( Int_t j = 0 ; j < nevents ; j++ ){
 		tn->GetEntry(j);
+		if (j%iprintProcess == 0) cout<<"Processing "<<int(j*100./nevents)<<"% of events"<<endl;
 		if (nvect->Mode == 16){ // select only CC1pi coherent interaction
 			for ( Int_t i = 2 ; i < nvect->Npart() ; i++ ){ // Loop over all outgoing particles in the event
 				if((nvect->PartInfo(i))->fPID == 13){ // Oh Look ! There is a muon
@@ -122,6 +128,20 @@ void fill_histos(char *in_fname, char *out_fname){
     gStyle->SetOptTitle(0);
     gStyle->SetLabelSize(0.05, "x");
     gStyle->SetLabelSize(0.05, "y");
+
+NEUT_pmu->Write();
+NEUT_anglemu->Write();
+NEUT_cosanglemu->Write();
+    
+NEUT_ppi->Write();
+NEUT_anglepi->Write();
+NEUT_cosanglepi->Write();
+    
+NEUT_Q2->Write();
+NEUT_enurec->Write();
+NEUT_q2rec->Write();
+NEUT_t->Write();
+NEUT_eta->Write();
 
 	// ****************************
 	// ***** XS NORMALISATION *****

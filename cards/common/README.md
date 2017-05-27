@@ -10,3 +10,9 @@
 * neut_common_532_down_test.card
 * neut_common_test.card
 * neut_5.3.2_402_cohBS.card --> Use Berger-Segnal for coherent, available from 5.3.6
+
+###for on-axis flux
+neut_5.4.0_nd2_CH.card 
+neut_5.4.0_nd2_CH_1piGS.card --> GS model for cc1pi
+neut_5.4.0_nd2_CH_COH.card --> coherent only, Rein-Segnal model
+neut_5.4.0_nd2_CH_COH_BS.card --> coherent only, Berger-Segnal model
