@@ -1,3 +1,71 @@
+CEVCT-NEVT  100000
+EVCT-NEVT  10
+C
+C **** TARGET INFORMATION ****
+C
+C NUMBNDN : total number of neutron
+C           (e.g. CH => 6, H2O => 8, Ar => 22, Fe => 30)
+C
+NEUT-NUMBNDN 6
+C
+C NUMBNDP : total number of bound proton
+C           (e.g. CH => 6, H2O => 8, Ar => 18, Fe => 26)
+C
+NEUT-NUMBNDP 6
+C
+C NUMFREP : total number of free proton
+C           (e.g. CH => 1, H2O => 2, Ar => 0, Fe => 0)
+C
+NEUT-NUMFREP 1
+C
+C NUMATOM : atomic number of atom heavier than hydrogen
+C           (e.g. CH => 12, H2O =>16, Ar => 40, Fe => 56)
+C
+NEUT-NUMATOM 12
+C
+EVCT-IDPT 14
+C
+C fixed  VERTEX ; EVCT-MPOS 1
+C random VERTEX ; EVCT-MPOS 2
+C
+C EVCT-MPOS 1
+C VECT-POS  100. 0. 0.
+C
+EVCT-MPOS 2
+EVCT-RAD  100.
+C
+C--------------------------------
+C
+C fixed  DIRECTION ; EVCT-MDIR 1
+C random DIRECTION ; EVCT-MDIR 2
+C
+EVCT-MDIR 1
+EVCT-DIR 0. 0. 1.
+C
+C
+C--------------------------------
+C
+C fixed  MOMENTUM ; EVCT-MPV 1
+C random MOMENTUM ; EVCT-MPV 2
+C
+C random MOMENTUM based on flux times cross section distribution
+C EVCT-MPV 3
+C EVCT-FILENM : name of ROOT file containing flux histogram
+C EVCT-HISTNM : flux histogram name
+C EVCT-INMEV  : flag for histograms in MeV
+C               (MeV => 1, GeV => 0)
+C
+CEVCT-MPV 1
+CEVCT-PV  600.
+CEVCT-MPV 2
+CEVCT-PV  50.  1000.
+C
+EVCT-MPV 3
+EVCT-FILENM  'nd34_tuned_11bv3.1_250ka.root'
+EVCT-HISTNM  'ing3_tune_numu'
+EVCT-INMEV 0
+C
+C
 C *********************************
 C ***** ATMOSPHERIC NEUTRINO ******
 C * in this case, EVCT is useless *
@@ -9,32 +77,6 @@ C read VECTOR from file   ; VECT-FILE 0
 C read VECTOR from SGGVUS ; VECT-FILE -1
 C
 VECT-FILE 2
-EVCT-IDPT 14
-
-C
-C EVCT-MPOS 1
-C VECT-POS  100. 0. 0.
-C
-EVCT-MPOS 2
-EVCT-RAD  100.
-
-C
-EVCT-MDIR 1
-EVCT-DIR 0. 0. 1.
-C
-
-CEVCT-MPV  1
-
-CEVCT-MPV 2
-CEVCT-PV  200. 10000.
-
-EVCT-MPV 3
-EVCT-FILENM  'nd34_tuned_11bv3.1_250ka.root'
-EVCT-HISTNM  'ing3_tune_numu'
-EVCT-INMEV 0
-
-EVCT-NEVT  10
-CEVCT-NEVT  100000
 C
 C fixed  VERTEX ; VECT-MVTX 1
 C random VERTEX ; VECT-MVTX 2
@@ -131,22 +173,22 @@ C
 C NUMBNDN : total number of neutron
 C           (e.g. CH => 6, H2O => 8, Ar => 22, Fe => 30)
 C
-NEUT-NUMBNDN 6
+NEUT-NUMBNDN 8
 C
 C NUMBNDP : total number of bound proton
 C           (e.g. CH => 6, H2O => 8, Ar => 18, Fe => 26)
 C
-NEUT-NUMBNDP 6
+NEUT-NUMBNDP 8
 C
 C NUMFREP : total number of free proton
 C           (e.g. CH => 1, H2O => 2, Ar => 0, Fe => 0)
 C
-NEUT-NUMFREP 1
+NEUT-NUMFREP 2
 C
 C NUMATOM : atomic number of atom heavier than hydrogen
 C           (e.g. CH => 12, H2O =>16, Ar => 40, Fe => 56)
 C
-NEUT-NUMATOM 12
+NEUT-NUMATOM 16
 C
 CNEUT-PFSURF 0.225
 CNEUT-PFMAX  0.225
@@ -173,8 +215,8 @@ C Resonant Pion-less Delta Decay (20% Default)
 C   IPILESSDCY: 1: on (default), 0: off
 C   RPILESSDCY: Fraction of 1pi events (0.2 default)
 C 
-CNEUT-IPILESSDCY 0
-CNEUT-RPILESSDCY 0.0
+CNEUT-IPILESSDCY 1
+CNEUT-RPILESSDCY 0.2
 C
 C
 C ABSPIEMIT : Nucleon emission after absorption of pi 1: on (default) 0: off
@@ -319,8 +361,8 @@ C  10:    NC DIS 1320     NC DIS 1.3 < W < 2.0
 C  11:    NC els          CC Q.E.( Bound )
 C  12:    NC els          NC els
 C  13:    NC els          NC els
-C  14:    CC coherent        NC els
-C  15:    NC coherent        coherent
+C  14:    coherent        NC els
+C  15:    coherent        coherent
 C  16:    CC eta          coherent
 C  17     NC eta          CC eta
 C  18:    NC eta          NC eta
@@ -351,15 +393,14 @@ C  Select Coherent pion model (Rein & Sehgal=0(default), Kartavtsev et al.=1
 CNEUT-COHEPI  0
 C
 C  CCQE Axial Mass (For simulation, must be set to: 1.01, 1.11, 1.21{default}. 1.31)
-CNEUT-MAQE 1.21
-NEUT-MAQE 1.05
+NEUT-MAQE 1.21
 C
 C  CCQE Vector Mass (Default: 0.84)
 CNEUT-MVQE 0.84
 C
 C  CC1pi Vector Mass (Default: 0.84)
 
-CNEUT-MVSPI 0.84
+NEUT-MVSPI 0.84
 
 C  Single Pion Production Model (IFF)
 C  0: Rein-Seghal Model
@@ -401,13 +442,7 @@ C          : 0x : Scaling to CCQE     ( same as 5.0.x )
 C          : 1x : Scaling to Spectrum func. with Dipole (prior to v5.1.2)
 C          : 2x : Scaling to Spectrum func. with BBBA05 (default from v5.1.2)
 C
-NEUT-MDLQE 2002
-C
-C-- Model for 2p2h interaction
-C  MDL2P2H = 1 ; Nieves model with table
-C  MDL2P2H = 2 ; Nieves model with hadron tensor
-C
-NEUT-MDL2P2H 2
+NEUT-MDLQE 402
 C
 C
 C RAND : random seed
@@ -415,7 +450,4 @@ C      0 : Read RANDOM number from FILE
 C      1 : Generating RANDOM SEED from the time
 C
 NEUT-RAND 1
-C
-C
-C
 NEUT-CRSPATH '../crsdat'
