@@ -1,27 +1,6 @@
 EVCT-NEVT  1000000
 CEVCT-NEVT  100
 C
-C **** TARGET INFORMATION ****
-C
-C NUMBNDN : total number of neutron
-C           (e.g. CH => 6, H2O => 8, Ar => 22, Fe => 30)
-C
-NEUT-NUMBNDN 6
-C
-C NUMBNDP : total number of bound proton
-C           (e.g. CH => 6, H2O => 8, Ar => 18, Fe => 26)
-C
-NEUT-NUMBNDP 6
-C
-C NUMFREP : total number of free proton
-C           (e.g. CH => 1, H2O => 2, Ar => 0, Fe => 0)
-C
-NEUT-NUMFREP 1
-C
-C NUMATOM : atomic number of atom heavier than hydrogen
-C           (e.g. CH => 12, H2O =>16, Ar => 40, Fe => 56)
-C
-NEUT-NUMATOM 12
 C
 EVCT-IDPT 14
 C
@@ -173,22 +152,22 @@ C
 C NUMBNDN : total number of neutron
 C           (e.g. CH => 6, H2O => 8, Ar => 22, Fe => 30)
 C
-NEUT-NUMBNDN 8
+NEUT-NUMBNDN 6
 C
 C NUMBNDP : total number of bound proton
 C           (e.g. CH => 6, H2O => 8, Ar => 18, Fe => 26)
 C
-NEUT-NUMBNDP 8
+NEUT-NUMBNDP 6
 C
 C NUMFREP : total number of free proton
 C           (e.g. CH => 1, H2O => 2, Ar => 0, Fe => 0)
 C
-NEUT-NUMFREP 2
+NEUT-NUMFREP 1
 C
 C NUMATOM : atomic number of atom heavier than hydrogen
 C           (e.g. CH => 12, H2O =>16, Ar => 40, Fe => 56)
 C
-NEUT-NUMATOM 16
+NEUT-NUMATOM 12
 C
 CNEUT-PFSURF 0.225
 CNEUT-PFMAX  0.225

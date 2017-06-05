@@ -1,5 +1,5 @@
-EVCT-NEVT  1000000
-CEVCT-NEVT  100
+EVCT-NEVT  100000
+CEVCT-NEVT  10
 C
 C
 EVCT-IDPT 14
@@ -34,15 +34,15 @@ C EVCT-HISTNM : flux histogram name
 C EVCT-INMEV  : flag for histograms in MeV
 C               (MeV => 1, GeV => 0)
 C
-EVCT-MPV 1
-EVCT-PV  600.
+CEVCT-MPV 1
+CEVCT-PV  600.
 CEVCT-MPV 2
 CEVCT-PV  50.  1000.
 C
-CEVCT-MPV 3
-CEVCT-FILENM  't2k_skflux_numu_o.root'
-CEVCT-HISTNM  'flux_numu'
-CEVCT-INMEV 0
+EVCT-MPV 3
+EVCT-FILENM  'nd34_tuned_11bv3.1_250ka.root'
+EVCT-HISTNM  'ing3_tune_numu'
+EVCT-INMEV 0
 C
 C
 C *********************************
@@ -359,6 +359,7 @@ C CRS  :  Multiplied factor to cross section on each mode. ( neu )
 C CSRB :  Multiplied factor to cross section on each mode. ( neu-bar )
 C
 C          1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27
+CNEUT-CRS   0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 1. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
 CNEUT-CRS   1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1.
 CNEUT-CRSB  1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1.
 C
@@ -420,7 +421,7 @@ C          : 0x : Scaling to CCQE     ( same as 5.0.x )
 C          : 1x : Scaling to Spectrum func. with Dipole (prior to v5.1.2)
 C          : 2x : Scaling to Spectrum func. with BBBA05 (default from v5.1.2)
 C
-NEUT-MDLQE 02
+NEUT-MDLQE 402
 C
 C
 C RAND : random seed
