@@ -43,6 +43,50 @@ void plot2hist(TH1* h1, TString leg1, TH1* h2, TString leg2, TString savename=""
     gPad->Print("plots/"+savename+".eps");
 
 }
+
+void plot3hist(TH1* h1, TString leg1, TH1* h2, TString leg2, TH1* h3, TString leg3, TString savename="", Float_t xlegmin=0.4, Float_t ylegmin=0.4 ){
+    new TCanvas;
+    gStyle->SetOptStat(0);
+
+    titleStyle(h1);
+    Int_t ci;
+    ci = TColor::GetColor("#0072B2");
+    h1->SetLineColor(ci);
+    h1->SetFillColor(ci);
+    h1->SetFillStyle(1001);
+    h1->SetLineWidth(3);
+
+    double maxY = TMath::Max(h1->GetMaximum(),h2->GetMaximum());
+    h1->DrawCopy("hist");
+
+
+    ci = TColor::GetColor("#D55E00");
+    h2->SetLineColor(ci);
+    h2->SetFillColor(ci);
+    h2->SetFillStyle(3554);
+    h2->SetLineWidth(3);
+    h2->DrawCopy("histsames");
+
+    ci = TColor::GetColor("#000000");
+    h3->SetLineColor(ci);
+    //h3->SetFillColor(ci);
+    //h3->SetFillStyle(3554);
+    h3->SetLineWidth(3);
+    h3->DrawCopy("histsames");
+
+    TLegend* leg = new TLegend(xlegmin,ylegmin,xlegmin+0.3,ylegmin+0.25);
+    leg->SetFillStyle(0);
+    leg->SetBorderSize(0);
+    leg->SetTextSize(0.045);
+    leg->AddEntry(h1, leg1);
+    leg->AddEntry(h2, leg2);
+    leg->AddEntry(h3, leg3);
+    leg->Draw();
+
+    gPad->Print("plots/"+savename+".eps");
+
+}
+
 void plot2hist_stat(TH1* h1, TString leg1, TH1* h2, TString leg2, TString tagname="", TString savename="", Bool_t isAreaNormalization ){
     new TCanvas;
     gStyle->SetOptStat(1111);
