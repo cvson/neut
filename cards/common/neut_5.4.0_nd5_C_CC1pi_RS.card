@@ -77,8 +77,12 @@ C          0 : In GeV
 C          1 : In MeV
 C
 
-EVCT-MPV  1
-EVCT-PV  600.
+CEVCT-MPV  1
+CEVCT-PV  600.
+EVCT-MPV 3
+EVCT-FILENM  'nd5_tuned13av1.1_13anom_run1-7c_fine.root'
+EVCT-HISTNM  'enu_nd5_tuned13a_numu'
+EVCT-INMEV 0
 
 C--------------------------------------------------
 C **** TARGET INFORMATION ****
@@ -209,21 +213,18 @@ C     Dependent on MASPI, BGSCL, CA5
 C  Must generate single pion total xsec for given
 C    MASPI, BGSCL, CA5, NRTYPE   
 
-NEUT-IFF 1
+NEUT-IFF 0
 
 C  CC1pi Axial Mass 
-NEUT-MASPI 0.95
+NEUT-MASPI 1.21
 
 C  Nonresonant background scaling
-NEUT-BGSCL 1.3
+NEUT-BGSCL 1.0
 
 C  Rein-Seghal NRTYPE
 C  0: Electroproduction
 C  1: Neutrino-Production (default)
 NEUT-NRTYPE 1
-
-C  Graczyk and Sobczyk CA5(0) Parameter
-NEUT-CA5 1.01
 
 C
 C-----------------------------------------------------------------------
