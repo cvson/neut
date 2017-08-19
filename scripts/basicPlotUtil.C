@@ -22,7 +22,9 @@ void plot2hist(TH1* h1, TString leg1, TH1* h2, TString leg2, TString savename=""
     h1->SetLineWidth(3);
 
     double maxY = TMath::Max(h1->GetMaximum(),h2->GetMaximum());
-    h1->DrawCopy("hist");
+    //h1->SetMaximum(maxY *1.2);
+    h1->GetYaxis()->SetRangeUser(0, maxY*1.3);
+	h1->DrawCopy("hist");
 
 
     ci = TColor::GetColor("#D55E00");
@@ -57,7 +59,9 @@ void plot3hist(TH1* h1, TString leg1, TH1* h2, TString leg2, TH1* h3, TString le
     h1->SetLineWidth(3);
 
     double maxY = TMath::Max(h1->GetMaximum(),h2->GetMaximum());
-    h1->DrawCopy("hist");
+    maxY = TMath::Max(maxY,h3->GetMaximum());
+    h1->GetYaxis()->SetRangeUser(0,maxY*1.3);
+	h1->DrawCopy("hist");
 
 
     ci = TColor::GetColor("#D55E00");

@@ -1,48 +1,23 @@
-void plot_basics_comp2ver_coh(){
+void plot_basics_comp2ver_cc1pi(){
     gROOT->ProcessLine(".x rootlogon.C"); 
     gROOT->ProcessLine(".L basicPlotUtil.C");
     TString ipDir = "/home/cvson/disk/nuicise/neut/neut_5.4.0_alpha/src/neutsmpl/";
     TString ipDir1 = "/home/cvson/disk/nuicise/neut/neut_5.3.7_INGRID_FIX/src/neutsmpl/";
     TString ipDir2 = "/home/cvson/disk/nuicise/neut/neut_5.3.2/src/neutsmpl/";
     TString ipDir4 = "/home/cvson/disk/nuicise/neut/neut_5.4.0/src/neutsmpl/";    
-    /*TFile *ffile = new TFile(ipDir+"basicplot_540alpha_nd2_ch_MDLQE2002_COH.root");
-    TString vername = "NEUT 5.4.0, Rein-Seghal"; 
-    TFile *ffile2 = new TFile(ipDir+"basicplot_540alpha_nd2_ch_MDLQE2002_COH_BS.root");
-    TString vername2 = "NEUT 5.4.0, Berger-Seghal";
-    TString savename ="nd2_coh_v540_bsvsrs_";*/
 
-
-    /*TFile *ffile = new TFile(ipDir+"basicplot_540alpha_nd2_ch_MDLQE2002_COH.root");
-    TString vername = "NEUT 5.4.0, Rein-Seghal"; 
-    TFile *ffile2 = new TFile(ipDir2+"basicplot_532_nd2_ch_MDLQE402_COH.root");
-    TString vername2 = "NEUT 5.3.2, Rein-Seghal";
-    TString savename ="nd2_coh_v540_v532_rs";*/
-
-    /*TFile *ffile = new TFile(ipDir1+"basicplot_537_nd2_ch_MDLQE402_COH.root");
-    TString vername = "NEUT 5.3.7, Rein-Seghal"; 
-    TFile *ffile2 = new TFile(ipDir2+"basicplot_532_nd2_ch_MDLQE402_COH.root");
-    TString vername2 = "NEUT 5.3.2, Rein-Seghal";
-    TString savename ="nd2_coh_v537_v532_rs";*/
-
-    /*TFile *ffile = new TFile(ipDir+"basicplot_540alpha_nd2_ch_MDLQE402_COH.root");
-    TString vername = "NEUT 5.4.0, Rein-Seghal"; 
-    TFile *ffile2 = new TFile(ipDir2+"basicplot_532_nd2_ch_MDLQE402_COH.root");
-    TString vername2 = "NEUT 5.3.2, Rein-Seghal";
-    TString savename ="nd2_coh_v540_v532_rs_mode402_";*/
-
-
-    /*TFile *ffile = new TFile(ipDir1+"basicplot_537_nd2_ch_MDLQE402_COH.root");
-    TString vername = "NEUT 5.3.7, RS, Spec. Func."; 
-    TFile *ffile2 = new TFile(ipDir1+"basicplot_537_nd2_ch_MDLQE02_COH.root");
-    TString vername2 = "NEUT 5.3.7, RS, Fermi Gas.";
-    TString savename ="nd2_coh_v537_spec_vs_fermi";*/
-
-    TFile *ffile = new TFile(ipDir4+"basicplotso_5.4.0_nd5_C_CCcoh_RS.root");
+    TFile *ffile = new TFile(ipDir4+"basicplotso_5.4.0_nd5_C_CC1pi_RS.root");
     TString vername = "Rein-Seghal"; 
-    TFile *ffile2 = new TFile(ipDir4+"basicplotso_5.4.0_nd5_C_CCcoh_BS.root");
-    TString vername2 = "Berger-Seghal";
-    TString savename ="neut540_nd5_coh_comp2_";
+    TFile *ffile2 = new TFile(ipDir4+"basicplotso_5.4.0_nd5_C_CC1pi_GS.root");
+    TString vername2 = "Graczyk-Sobczyk";
+    TString savename ="neut540_nd5_cc1pi_comp2_";
 
+    /*TFile *ffile = new TFile(ipDir4+"basicplotso_5.4.0_nd5_C_CC1pi_RS.root");
+    TString vername = "Rein-Seghal"; 
+    TFile *ffile2 = new TFile(ipDir4+"basicplotso_5.4.0_nd5_C_CC1pi_RS_20piless.root");
+    TString vername2 = "RS + 20% #pi-less #Delta";
+    TString savename ="neut540_nd5_cc1pi_comp2_rspiless_";
+    */
  
     TIter next(ffile->GetListOfKeys());
     TKey *key;
@@ -65,15 +40,18 @@ void plot_basics_comp2ver_coh(){
 		if(TString(obj->GetName()).Contains("\_Q2")) h->GetXaxis()->SetTitle("Q^{2}(GeV^{2})");
 		else if (TString(obj->GetName()).Contains("\_anglemu")) h->GetXaxis()->SetTitle("#theta_{#mu}");
 		else if (TString(obj->GetName()).Contains("\_anglepi")) h->GetXaxis()->SetTitle("#theta_{#pi}");
+		else if (TString(obj->GetName()).Contains("\_angleneu\_in")) h->GetXaxis()->SetTitle("Incoming #theta_{nucleon}");
 		else if (TString(obj->GetName()).Contains("\_pmu")) h->GetXaxis()->SetTitle("P_{#mu}(GeV)");
                 else if (TString(obj->GetName()).Contains("\_ppi")) h->GetXaxis()->SetTitle("P_{#pi}(GeV)");
+		else if (TString(obj->GetName()).Contains("\_pneu\_in")) h->GetXaxis()->SetTitle("Incoming P_{nucleon}(GeV)");
 		else if (TString(obj->GetName()).Contains("\_cosanglemu")) h->GetXaxis()->SetTitle("cos#theta_{#mu}");
 		else if (TString(obj->GetName()).Contains("\_cosanglepi")) h->GetXaxis()->SetTitle("cos#theta_{#pi}");
+		else if (TString(obj->GetName()).Contains("\_cosangleneu\_in")) h->GetXaxis()->SetTitle("Incoming cos#theta_{nucleon}");
 		else if (TString(obj->GetName()).Contains("\_enurec")) h->GetXaxis()->SetTitle("Recontructed E_{#nu} (GeV)");
 		else if (TString(obj->GetName()).Contains("\_q2rec")) h->GetXaxis()->SetTitle("Recontructed Q^{2}(GeV^{2})");
 		else if (TString(obj->GetName()).Contains("\_t")) h->GetXaxis()->SetTitle("|t|-momentum transfer (GeV^{2})");
 		if(TString(obj->GetName()).Contains("\_XS") ) {
-		   plot2hist(h,vername,h2,vername2,savename+TString(obj->GetName()),0.5,0.3);
+		   plot2hist(h,vername,h2,vername2,savename+TString(obj->GetName()),0.6,0.6);
 		}
 		else if (TString(obj->GetName()).Contains("TotXS") ){ 
 		h->GetXaxis()->SetRangeUser(0,10);
@@ -81,7 +59,7 @@ void plot_basics_comp2ver_coh(){
 		}
 		else if (TString(obj->GetName()).Contains("flux\_numu") ){ 
                 h->GetXaxis()->SetRangeUser(0,10);
-                plot2hist(h,vername,h2,vername2,savename+TString(obj->GetName()),0.5,0.3);
+                plot2hist(h,vername,h2,vername2,savename+TString(obj->GetName()),0.6,0.6);
                 }
 		else plot2hist_stat(h,vername,h2,vername2,"",savename+TString(obj->GetName()),false);	
         }

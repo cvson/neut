@@ -227,6 +227,8 @@ NEUT_ppro->Write();
 NEUT_anglepro->Write();
 NEUT_cosanglepro->Write();
 NEUT_cosopenanglemupro->Write();
+NEUT_cosopenanglemuproccqe->Write();
+NEUT_cosopenanglemupromec->Write();
 
 NEUT_ppro2->Write();
 NEUT_anglepro2->Write();
