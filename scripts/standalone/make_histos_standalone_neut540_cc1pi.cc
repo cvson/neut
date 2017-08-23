@@ -202,8 +202,10 @@ NEUT_eta->Write();
   	h_evtrt->Divide(h_flux); // integrated XS per nucleons = event rate / flux
 	//for the piless delta decay, this is not true
 	//additional weight is needed
-        h_evtrt->Scale(NEVENTMODE_SEL*1.0/NEVENTMODE);//scale by selected event	
-  	h_evtrt->Scale(12); // x12 because C has 12 nucleons 
+        //h_evtrt->Scale(NEVENTMODE_SEL*1.0/NEVENTMODE);//scale by selected event	
+  	//for running in default mode
+  	h_evtrt->Scale(NEVENTMODE_SEL*1.0/nevents);
+        h_evtrt->Scale(12); // x12 because C has 12 nucleons 
   	h_evtrt->Write();
 
 	// XS normalisation of NEUT for pion mom 

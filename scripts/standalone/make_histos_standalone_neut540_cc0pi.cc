@@ -84,10 +84,13 @@ void fill_histos(char *in_fname, char *out_fname){
 	iprintProcess = Long64_t(nevents/100.);
   	std::cout<<"nevents = "<<nevents<<std::endl;
 	int nproton;
+	int NEVENTMODE=nevents;//all event
+	int NEVENTMODE_SEL=0;//after cut
   	for ( Int_t j = 0 ; j < nevents ; j++ ){
 		tn->GetEntry(j);
 		if (j%iprintProcess == 0) cout<<"Processing "<<int(j*100./nevents)<<"% of events"<<endl;
 		if (nvect->Mode ==1 || nvect->Mode ==2){ // select  CCqe or MEC  interaction
+		++NEVENTMODE_SEL;
 			for ( Int_t i = 2 ; i < nvect->Npart() ; i++ ){ // Loop over all outgoing particles in the event
 				nproton = 0;
 				if((nvect->PartInfo(i))->fPID == 13){ // Oh Look ! There is a muon
@@ -267,6 +270,7 @@ NEUT_eta->Write();
   	h_evtrt->GetYaxis()->SetTitle("Integrated XS (x10^{-38}cm^{2})");
   	h_evtrt->GetYaxis()->CenterTitle();
   	h_evtrt->Divide(h_flux); // integrated XS per nucleons = event rate / flux
+	h_evtrt->Scale(NEVENTMODE_SEL*1.0/NEVENTMODE);//scale by selected event	
   	h_evtrt->Scale(12); // x12 because C has 12 nucleons 
   	h_evtrt->Write();
 
