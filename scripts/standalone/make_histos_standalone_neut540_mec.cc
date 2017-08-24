@@ -8,7 +8,7 @@ using namespace std;
 
 void fill_histos(char *, char *, Double_t );
 
-void make_histos_standalone_neut540_ccqe(char *in_fname, char *out_fname){
+void make_histos_standalone_neut540_mec(char *in_fname, char *out_fname){
   	gSystem->Load("/home/cvson/nuicise/neut/neut_5.4.0/src/neutclass/neutnucfsistep.so");
         gSystem->Load("/home/cvson/nuicise/neut/neut_5.4.0/src/neutclass/neutnucfsivert.so");	
         gSystem->Load("/home/cvson/nuicise/neut/neut_5.4.0/src/neutclass/neutvtx.so");
@@ -94,7 +94,7 @@ void fill_histos(char *in_fname, char *out_fname){
 		if (j%iprintProcess == 0) cout<<"Processing "<<int(j*100./nevents)<<"% of events"<<endl;
 		nproton = 0;//reset
 		npion = 0;
-		if (abs(nvect->Mode) ==1){ // select  all CC interaction
+		if (abs(nvect->Mode) ==2){ // select  all CC interaction
 		++NEVENTMODE_SEL;
 			for ( Int_t i = 2 ; i < nvect->Npart() ; i++ ){ // Loop over all outgoing particles in the event
 				nproton = 0;

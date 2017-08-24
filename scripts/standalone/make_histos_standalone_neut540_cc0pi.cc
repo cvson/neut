@@ -35,10 +35,12 @@ void fill_histos(char *in_fname, char *out_fname){
   	tn->SetBranchAddress("vectorbranch",&nvect);
 
   	// Define the histos that will show amazing results (kinematic variables)
+	TH1D *NEUT_mode           = new TH1D("NEUT_mode","NEUT mode",  55,0,55);
 	TH1D *NEUT_pmu        = new TH1D("NEUT_pmu","muon momentum",  100,0.,2.);
    	TH1D *NEUT_anglemu    = new TH1D("NEUT_anglemu","muon angle", 180,0.,180.);
    	TH1D *NEUT_cosanglemu = new TH1D("NEUT_cosanglemu","cos muon angle", 50,-1.,1.);
 
+	TH1D *NEUT_npro           = new TH1D("NEUT_npro","No. of protons",  10,0,10);
    	TH1D *NEUT_ppro           = new TH1D("NEUT_ppro","out-nucleon(1) momentum",  100,0,2);
    	TH1D *NEUT_anglepro       = new TH1D("NEUT_anglepro","out-nucleon(1) angle", 180,0,180);
    	TH1D *NEUT_cosanglepro    = new TH1D("NEUT_cosanglepro","cos out-nucleon(1) angle", 50,-1.,1.);
@@ -83,24 +85,30 @@ void fill_histos(char *in_fname, char *out_fname){
 	Long64_t iprintProcess;
 	iprintProcess = Long64_t(nevents/100.);
   	std::cout<<"nevents = "<<nevents<<std::endl;
+	int npion;
 	int nproton;
 	int NEVENTMODE=nevents;//all event
 	int NEVENTMODE_SEL=0;//after cut
   	for ( Int_t j = 0 ; j < nevents ; j++ ){
 		tn->GetEntry(j);
 		if (j%iprintProcess == 0) cout<<"Processing "<<int(j*100./nevents)<<"% of events"<<endl;
-		if (nvect->Mode ==1 || nvect->Mode ==2){ // select  CCqe or MEC  interaction
+		nproton = 0;//reset
+		npion = 0;
+		if (abs(nvect->Mode) <30){ // select  all CC interaction
 		++NEVENTMODE_SEL;
 			for ( Int_t i = 2 ; i < nvect->Npart() ; i++ ){ // Loop over all outgoing particles in the event
 				nproton = 0;
 				if((nvect->PartInfo(i))->fPID == 13){ // Oh Look ! There is a muon
 					double muon_nbr = i;
 				}
+				//check no of pion
+				 else if((nvect->PartInfo(i))->fPID == 211 || (nvect->PartInfo(i))->fPID == 111){ // And here, it's a pion, this is awesome !
+                                        npion +=1;//check number of pion
+                                }
 				//proton
-				/*else if((nvect->PartInfo(i))->fPID == 2212){ // And here, it's a proton, this is awesome !
-					double proton_nbr = i;
+				else if((nvect->PartInfo(i))->fPID == 2212){ // And here, it's a proton, this is awesome !
 					nproton +=1;//check number of proton
-				}*/
+				}
 			}
 			double proton_nbr = 3;//not mec
 			double proton_nbr2 = 5;//if mec
@@ -126,6 +134,8 @@ void fill_histos(char *in_fname, char *out_fname){
 			// -----------------------
 			// - Fill Muon variables -
 			// -----------------------
+			if(npion==0){
+			NEUT_mode->Fill(nvect->Mode);
 			double e_mu = (nvect->PartInfo(muon_nbr))->fP.E()/1000.;    // Muon energy in GeV
 	  		double p_mu = (nvect->PartInfo(muon_nbr))->fP.P()/1000.;    // Muon momentum in GeV
 			double angle_mu = (nvect->PartInfo(0))->fP.Angle((nvect->PartInfo(muon_nbr))->fP.Vect()); // Muon angle
@@ -138,6 +148,7 @@ void fill_histos(char *in_fname, char *out_fname){
 			// -----------------------
 			// - Fill Proton variables -
 			// -----------------------
+			NEUT_npro->Fill(nproton);
 			double epro = (nvect->PartInfo(proton_nbr))->fP.E()/1000.;
 	  		double ppro = (nvect->PartInfo(proton_nbr))->fP.P()/1000.;
 	  		double angle_pro = (nvect->PartInfo(0))->fP.Angle((nvect->PartInfo(proton_nbr))->fP.Vect());
@@ -207,7 +218,8 @@ void fill_histos(char *in_fname, char *out_fname){
 			NEUT_enurec->Fill(enu_rec);
 			NEUT_q2rec->Fill(q2_rec);
 			NEUT_eta->Fill(eta);
-		}
+			}//nend npion
+		}//end if mode
 	} // End of Loop over the entries
 
   	// Create the output analysed file that will contain all our info
@@ -222,10 +234,12 @@ void fill_histos(char *in_fname, char *out_fname){
     gStyle->SetLabelSize(0.05, "x");
     gStyle->SetLabelSize(0.05, "y");
 
+NEUT_mode->Write();
 NEUT_pmu->Write();
 NEUT_anglemu->Write();
 NEUT_cosanglemu->Write();
-    
+
+NEUT_npro->Write();    
 NEUT_ppro->Write();
 NEUT_anglepro->Write();
 NEUT_cosanglepro->Write();

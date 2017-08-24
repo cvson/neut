@@ -8,7 +8,7 @@ using namespace std;
 
 void fill_histos(char *, char *, Double_t );
 
-void make_histos_standalone_neut540_cc1pi(char *in_fname, char *out_fname){
+void make_histos_standalone_neut540_ccnpi(char *in_fname, char *out_fname){
   	gSystem->Load("/home/cvson/nuicise/neut/neut_5.4.0/src/neutclass/neutnucfsistep.so");
         gSystem->Load("/home/cvson/nuicise/neut/neut_5.4.0/src/neutclass/neutnucfsivert.so");	
         gSystem->Load("/home/cvson/nuicise/neut/neut_5.4.0/src/neutclass/neutvtx.so");
@@ -33,9 +33,8 @@ void fill_histos(char *in_fname, char *out_fname){
   	tn->SetBranchAddress("vertexbranch",&nvtx);
   	NeutVect *nvect = new NeutVect();
   	tn->SetBranchAddress("vectorbranch",&nvect);
-
+	TH1D *NEUT_mode        = new TH1D("NEUT_mode","NEUT mode",  55,0.,55);
   	// Define the histos that will show amazing results (kinematic variables)
-  	TH1D *NEUT_mode        = new TH1D("NEUT_mode","NEUT mode",  55,0.,55);
 	TH1D *NEUT_pmu        = new TH1D("NEUT_pmu","muon momentum",  100,0.,2.);
    	TH1D *NEUT_anglemu    = new TH1D("NEUT_anglemu","muon angle", 180,0.,180.);
    	TH1D *NEUT_cosanglemu = new TH1D("NEUT_cosanglemu","cos muon angle", 50,-1.,1.);
@@ -43,6 +42,9 @@ void fill_histos(char *in_fname, char *out_fname){
    	TH1D *NEUT_ppi           = new TH1D("NEUT_ppi","pion momentum",  100,0,2);
    	TH1D *NEUT_anglepi       = new TH1D("NEUT_anglepi","pion angle", 180,0,180);
    	TH1D *NEUT_cosanglepi    = new TH1D("NEUT_cosanglepi","cos pion angle", 50,-1.,1.);
+
+        TH1D *NEUT_npi           = new TH1D("NEUT_npi","No. of pion",  10,0,10);
+
         //for single pion, this can be proton or neutron
    	TH1D *NEUT_pneu_in           = new TH1D("NEUT_pneu_in","in-neutron momentum",  100,0,2);
         TH1D *NEUT_angleneu_in       = new TH1D("NEUT_angleneu_in","in-neutron angle", 180,0,180);
@@ -53,9 +55,8 @@ void fill_histos(char *in_fname, char *out_fname){
    	TH1D *NEUT_q2rec   = new TH1D("NEUT_q2rec","q2 rec",       50,0.,1);
   	TH1D *NEUT_t       = new TH1D("NEUT_t","t (Mandelstam)",   100,0.,0.25);
   	TH1D *NEUT_eta     = new TH1D("NEUT_eta","eta",            200,0.,1.);
-
+        
 	TH1D *NEUT_W2      = new TH1D("NEUT_W2","W2",              200,0.,5);
-
   	// stuffs
    	double xmn  = 0.939;
 	double xmmu = 0.106;
@@ -75,7 +76,7 @@ void fill_histos(char *in_fname, char *out_fname){
   	for ( Int_t j = 0 ; j < nevents ; j++ ){
 		tn->GetEntry(j);
 		if (j%iprintProcess == 0) cout<<"Processing "<<int(j*100./nevents)<<"% of events"<<endl;
-		if (abs(nvect->Mode)<30){ // select all CC  interaction
+		if (abs(nvect->Mode)<30){ // select only CC  interaction
 			//cout<<"Problem"<<endl;
 			++NEVENTMODE;
 			double muon_nbr = -99;//
@@ -86,21 +87,28 @@ void fill_histos(char *in_fname, char *out_fname){
 					muon_nbr = i;
 				}
 				//pion+ or pion0
-				else if((nvect->PartInfo(i))->fPID == 211 || (nvect->PartInfo(i))->fPID == 111){ // And here, it's a pion, this is awesome !
-					pion_nbr = i;
+				else if(abs((nvect->PartInfo(i))->fPID) == 211 || (nvect->PartInfo(i))->fPID == 111){ // And here, it's a pion, this is awesome !
+					if(pion_nbr<0) pion_nbr = i;//first assignment
 					npion +=1;//check number of pion
+					//largest pion momentum
+					double e1 = (nvect->PartInfo(pion_nbr))->fP.E();
+                                        double e2 = (nvect->PartInfo(i))->fP.E();
+					if (e2>e1) pion_nbr = i;
 				}
 			}
-			if (npion>1) cout<<"warning number of pion "<<npion<<endl;
-			if (pion_nbr<0) cout<<"there is no pion"<<endl;
+			//if (npion>1) cout<<"warning number of pion "<<npion<<endl;
+			//if (pion_nbr<0) cout<<"there is no pion"<<endl;
 			double neuin_nbr = 1;//incoming nucleon
 			// -----------------------
 			// - Fill Muon variables -
 			// -----------------------
 			// Skipp for piless delta decay
-			if(npion==1){
+			if(npion>1){
 			++NEVENTMODE_SEL;
 			NEUT_mode->Fill(nvect->Mode);
+			NEUT_npi->Fill(npion);
+
+
 			double e_mu = (nvect->PartInfo(muon_nbr))->fP.E()/1000.;    // Muon energy in GeV
 	  		double p_mu = (nvect->PartInfo(muon_nbr))->fP.P()/1000.;    // Muon momentum in GeV
 			double angle_mu = (nvect->PartInfo(0))->fP.Angle((nvect->PartInfo(muon_nbr))->fP.Vect()); // Muon angle
@@ -147,8 +155,8 @@ void fill_histos(char *in_fname, char *out_fname){
 			double enu_rec =((xmn+eb)*e_mu-(2*xmn*eb+eb*eb+xmmu*xmmu)/2)/(xmn+eb-e_mu+p_mu*cos_mu);
 			double q2_rec = (2*enu_rec*(e_mu - p_mu*cos_mu)-xmmu*xmmu);
 			double eta = epi*(1-cos_pi);
+			//hadronic invariance
 			double W2 = abs(( (nvect->PartInfo(0))->fP - (nvect->PartInfo(muon_nbr))->fP + (nvect->PartInfo(1))->fP)*( (nvect->PartInfo(0))->fP - (nvect->PartInfo(muon_nbr))->fP + (nvect->PartInfo(1))->fP))*1e-6;
-
 			NEUT_Q2->Fill(Q2);
 			NEUT_t->Fill(t);
 			NEUT_enurec->Fill(enu_rec);
@@ -170,7 +178,9 @@ void fill_histos(char *in_fname, char *out_fname){
     gStyle->SetOptTitle(0);
     gStyle->SetLabelSize(0.05, "x");
     gStyle->SetLabelSize(0.05, "y");
+
 NEUT_mode->Write();
+
 NEUT_pmu->Write();
 NEUT_anglemu->Write();
 NEUT_cosanglemu->Write();
@@ -189,7 +199,9 @@ NEUT_q2rec->Write();
 NEUT_t->Write();
 NEUT_eta->Write();
 
-NEUT_Q2->Write();
+NEUT_W2->Write();
+NEUT_npi->Write();
+
 	// ****************************
 	// ***** XS NORMALISATION *****
 	// ****************************
@@ -249,7 +261,7 @@ NEUT_Q2->Write();
 
 	// XS normalisation of NEUT for Q2
 	TH1F * NEUT_Q2_XS  = (TH1F*)NEUT_Q2->Clone("NEUT_Q2_XS");
-	NEUT_Q2_XS->Scale(norm_rate*200/nevents); // x200 because of binning
+	NEUT_Q2_XS->Scale(norm_rate*100/nevents); // x100 because of binning
 	NEUT_Q2_XS->GetYaxis()->SetTitle("#frac{d#sigma}{dQ^{2}} (x10^{-38} cm^{2}.GeV^{-2})");
 	NEUT_Q2_XS->GetYaxis()->CenterTitle();
 	NEUT_Q2_XS->GetXaxis()->SetTitle("Q^{2} (GeV^{2})");
@@ -263,7 +275,7 @@ NEUT_Q2->Write();
 	NEUT_t_XS->GetXaxis()->SetTitle("t (GeV^{2})");
 	NEUT_t_XS->GetXaxis()->CenterTitle();
 
-	 TH1F * NEUT_W2_XS  = (TH1F*)NEUT_W2->Clone("NEUT_W2_XS");
+	TH1F * NEUT_W2_XS  = (TH1F*)NEUT_W2->Clone("NEUT_W2_XS");
         NEUT_W2_XS->Scale(norm_rate*40/nevents); // x40 because of binning
         NEUT_W2_XS->GetYaxis()->SetTitle("#frac{d#sigma}{dW^{2}} (x10^{-38} cm^{2}.GeV^{-2})");
         NEUT_W2_XS->GetYaxis()->CenterTitle();
