@@ -39,16 +39,34 @@ void read_xsec(){
 
     TFile *pfile = new TFile("/home/cvson/nuicise/neut/neut_5.3.6/src/neutsmpl/test_xsec_gfgccqe_dipole_nd5.root","READ");
     TString subname = "gfg_dipole_nd5";
-   TString neutversion = "NEUT 5.3.6, GFG-CCQE";
+   TString neutversion = "NEUT v5.3.6, GFG-CCQE";
    /*TFile *pfile = new TFile("/home/cvson/nuicise/neut/neut_5.3.6/src/neutsmpl/test_xsec_lfgccqe_nd5.root","READ");
     TString subname = "lfg_nd5";
-	TString neutversion = "NEUT 5.3.6, LFG-CCQE";*/
+	TString neutversion = "NEUT v5.3.6, LFG-CCQE";*/
     /*TFile *pfile = new TFile("/home/cvson/nuicise/neut/neut_5.3.6/src/neutsmpl/test_xsec_sfccqe_nd5.root","READ");
     TString subname = "sf_nd5";
-        TString neutversion = "NEUT 5.3.6, SF-CCQE";
-	*/
+        TString neutversion = "NEUT v5.3.6, SF-CCQE";*/
+	
 	TString neutversion_s = "neut536";
-    const int NCHANNEL = 27;//from neut 5.3.6 npnh included
+    
+    /*TFile *pfile = new TFile("/home/cvson/nuicise/neut/neut_5.4.0/src/neutsmpl/test_xsec_gfgccqe_dipole_nd5.root","READ");
+    TString subname = "gfg_dipole_nd5";
+   TString neutversion = "NEUT v5.4.0, GFG-CCQE";*/
+      /*TFile *pfile = new TFile("/home/cvson/nuicise/neut/neut_5.4.0/src/neutsmpl/test_xsec_lfgccqe_nd5.root","READ");
+      TString subname = "lfg_nd5";
+      TString neutversion = "NEUT v5.4.0, LFG-CCQE";*/
+      /*TFile *pfile = new TFile("/home/cvson/nuicise/neut/neut_5.4.0/src/neutsmpl/test_xsec_sfccqe_nd5.root","READ");
+      TString subname = "sf_nd5";
+      TString neutversion = "NEUT v5.4.0, SF-CCQE";*/
+
+/*	TFile *pfile = new TFile("/home/cvson/nuicise/neut/neut_5.4.0/src/neutsmpl/test_xsec_1p1hccqe_nd5.root","READ");
+      TString subname = "1p1h_nd5";
+      TString neutversion = "NEUT v5.4.0, Nieve 1p1h-CCQE";
+  */                    
+       //TString neutversion_s = "neut540";
+
+
+const int NCHANNEL = 27;//from neut 5.3.6 npnh included
     TH1D *hxsec[NCHANNEL];
     char *namechan[NCHANNEL]={"tot","ccqe","ccppip","ccppi0","ccnpip","cccoh","ccgam","ccmpi","cceta","cck","ccdis","ncnpi0","ncppi0","ncppim","ncnpip","nccoh","ncngam","ncpgam","ncmpi","ncneta","ncpeta","nck0","nckp","ncdis","ncqep","ncqen","npnh"};
     for (Int_t ichan=0; ichan<NCHANNEL; ++ichan) {
@@ -99,6 +117,7 @@ void read_xsec(){
     gStyle->SetOptStat(0);
     hxsec4show[0]->GetXaxis()->SetRangeUser(0,5);//check from 0-5 GeV
     hxsec4show[0]->SetTitle("");
+    //hxsec4show[0]->GetXaxis()->SetTitle("True #nu_{mu} ");
    titleStyle(hxsec4show[0]);
 	//hxsec4show[0]->CenterTitle();   
  hxsec4show[0]->Draw("hist");
@@ -121,7 +140,7 @@ void read_xsec(){
         l1->SetTextSize(20);
         l1->SetTextAlign(33);
 	l1->Draw();
-    gPad->Print("plots/"+neutversion_s+"_xsec_numu_"+subname+".eps");
+    gPad->Print("plots/xsecE/"+neutversion_s+"_xsec_numu_"+subname+".eps");
     
     //to check consistency
     //check if the sum of all channel equal to the total one
@@ -132,7 +151,7 @@ void read_xsec(){
     new TCanvas;
     hxsec4show[0]->Draw("hist");
     hsum->Draw("hist same");
-    gPad->Print("plots/"+neutversion_s+"_xsec_numu_"+subname+"checksum.eps");
+    gPad->Print("plots/xsecE/"+neutversion_s+"_xsec_numu_"+subname+"checksum.eps");
     
     
     

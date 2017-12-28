@@ -6,15 +6,30 @@ void plot_basics_comp3ver_ccqe(){
     TString ipDir2 = "/home/cvson/disk/nuicise/neut/neut_5.3.2/src/neutsmpl/";
     TString ipDir4 = "/home/cvson/disk/nuicise/neut/neut_5.4.0/src/neutsmpl/";    
 
-    TFile *ffile = new TFile(ipDir4+"basicplotso_5.4.0_nd5_C_CCQE_MDLQE2002.root");
+    /*TFile *ffile = new TFile(ipDir4+"basicplotso_5.4.0_nd5_C_CCQE_MDLQE2002.root");
     TString vername = "Nieve 1p1h"; 
     TFile *ffile2 = new TFile(ipDir4+"basicplotso_5.4.0_nd5_C_CCQE_MDLQE402.root");
     TString vername2 = "Spectral Func.";
    TFile *ffile1 = new TFile(ipDir4+"basicplotso_5.4.0_nd5_C_CCQE_MDLQE02.root");
     TString vername1 = "Fermi gas";
     TString savename ="neut540_nd5_ccqe_comp3_";
+	*/
+	TFile *ffile = new TFile(ipDir1+"basicplotso_5.3.6_nd5_C_LFGCCQE_nomFSI.root");
+    TString vername = "Nominal proton FSI"; 
+    TFile *ffile2 = new TFile(ipDir1+"basicplotso_5.3.6_nd5_C_LFGCCQE_modFSI.root");
+    TString vername2 = "Modified proton FSI";
+   TFile *ffile1 = new TFile(ipDir1+"basicplotso_5.3.6_nd5_C_LFGCCQE_modFSI_offpauli.root");
+    TString vername1 = "Modified proton FSI & Pauli blocking off";
+    TString savename ="neut536_nd5_ccqe_protonfsi_comp3_";
 
- 
+/*TFile *ffile = new TFile(ipDir4+"basicplotso_5.4.0_nd5_C_CCQE_MDLQE2002_NORESCAT.root");
+    TString vername = "Nieve 1p1h"; 
+    TFile *ffile2 = new TFile(ipDir4+"basicplotso_5.4.0_nd5_C_CCQE_MDLQE402_NORESCAT.root");
+    TString vername2 = "Spectral Func.";
+   TFile *ffile1 = new TFile(ipDir4+"basicplotso_5.4.0_nd5_C_CCQE_MDLQE02_NORESCAT.root");
+    TString vername1 = "Fermi gas";
+    TString savename ="neut540_nd5_ccqe_comp3_NORESCAT_";
+ */
     TIter next(ffile->GetListOfKeys());
     TKey *key;
     Int_t nhist=0;
@@ -39,6 +54,8 @@ void plot_basics_comp3ver_ccqe(){
 		else if (TString(obj->GetName()).Contains("\_anglepro")) h->GetXaxis()->SetTitle("#theta_{p}");
 		else if (TString(obj->GetName()).Contains("\_angleneu\_in")) h->GetXaxis()->SetTitle("Incoming #theta_{n}");
 		else if (TString(obj->GetName()).Contains("\_pmu")) h->GetXaxis()->SetTitle("P_{#mu}(GeV)");
+		else if (TString(obj->GetName()).Contains("\_npro")) h->GetXaxis()->SetTitle("No. of protons");
+		else if (TString(obj->GetName()).Contains("\_totproE")) h->GetXaxis()->SetTitle("Total kinematic energy of protons");
                 else if (TString(obj->GetName()).Contains("\_ppro")) h->GetXaxis()->SetTitle("P_{p}(GeV)");
 		else if (TString(obj->GetName()).Contains("\_pneu\_in")) h->GetXaxis()->SetTitle("Incoming P_{n}(GeV)");
 		else if (TString(obj->GetName()).Contains("\_cosanglemu")) h->GetXaxis()->SetTitle("cos#theta_{#mu}");

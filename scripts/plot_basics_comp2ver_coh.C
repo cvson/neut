@@ -37,12 +37,35 @@ void plot_basics_comp2ver_coh(){
     TString vername2 = "NEUT 5.3.7, RS, Fermi Gas.";
     TString savename ="nd2_coh_v537_spec_vs_fermi";*/
 
-    TFile *ffile = new TFile(ipDir4+"basicplotso_5.4.0_nd5_C_CCcoh_RS.root");
+    /*TFile *ffile = new TFile(ipDir4+"basicplotso_5.4.0_nd5_C_CCcoh_RS.root");
     TString vername = "Rein-Seghal"; 
     TFile *ffile2 = new TFile(ipDir4+"basicplotso_5.4.0_nd5_C_CCcoh_BS.root");
     TString vername2 = "Berger-Seghal";
-    TString savename ="neut540_nd5_coh_comp2_";
+    TString savename ="neut540_nd5_coh_comp2_";*/
+    
+    /*TFile *ffile = new TFile(ipDir4+"basicplotso_5.4.0_nd5_C_CCcoh_RS.root");
+    TString vername = "Rein-Seghal"; 
+    TFile *ffile2 = new TFile(ipDir4+"basicplotso_5.4.0_nd5_C_CCcoh_RS_MDLQE02.root");
+    TString vername2 = "Berger-Seghal";
+    TString savename ="neut540_nd5_coh_comp2mdlqe02_";*/
+ 
+    /*TFile *ffile = new TFile(ipDir4+"basicplotso_5.4.0_nd2_C_CCcoh_RS.root");
+    TString vername = "Rein-Seghal"; 
+    TFile *ffile2 = new TFile(ipDir4+"basicplotso_5.4.0_nd2_C_CCcoh_BS.root");
+    TString vername2 = "Berger-Seghal";
+    TString savename ="neut540_nd2_coh_comp2_";*/
 
+    /*TFile *ffile = new TFile(ipDir4+"basicplotso_5.3.6_nd5_C_SFCCQE_cccoh.root");
+    TString vername = "NEUT 5.4.0";
+    TFile *ffile2 = new TFile(ipDir1+"basicplotso_5.3.6_nd5_C_SFCCQE_cccoh.root");
+    TString vername2 = "NEUT 5.3.6";
+    TString savename ="nd5_cccoh_sf_neut540vs536_";*/
+ 
+    TFile *ffile = new TFile(ipDir4+"basicplotso_5.3.6_nd5_C_GFGCCQE_cccoh.root");
+    TString vername = "NEUT 5.4.0";
+    TFile *ffile2 = new TFile(ipDir1+"basicplotso_5.3.6_nd5_C_GFGCCQE_cccoh.root");
+    TString vername2 = "NEUT 5.3.6";
+    TString savename ="nd5_cccoh_gfg_neut540vs536_";
  
     TIter next(ffile->GetListOfKeys());
     TKey *key;

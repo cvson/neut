@@ -1,6 +1,5 @@
 #include "TMath.h"
 void titleStyle(TH1* h1){
-    h1->SetTitle("");
     h1->GetYaxis()->CenterTitle();
     h1->GetXaxis()->CenterTitle();
     h1->GetXaxis()->SetLabelSize(h1->GetXaxis()->GetTitleSize()*1.2);

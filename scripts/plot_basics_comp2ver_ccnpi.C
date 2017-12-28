@@ -1,4 +1,4 @@
-void plot_basics_comp2ver_cc1pi(){
+void plot_basics_comp2ver_ccnpi(){
     gROOT->ProcessLine(".x rootlogon.C"); 
     gROOT->ProcessLine(".L basicPlotUtil.C");
     TString ipDir = "/home/cvson/disk/nuicise/neut/neut_5.4.0_alpha/src/neutsmpl/";
@@ -6,30 +6,30 @@ void plot_basics_comp2ver_cc1pi(){
     TString ipDir2 = "/home/cvson/disk/nuicise/neut/neut_5.3.2/src/neutsmpl/";
     TString ipDir4 = "/home/cvson/disk/nuicise/neut/neut_5.4.0/src/neutsmpl/";    
 
-    /*TFile *ffile = new TFile(ipDir4+"basicplotso_5.4.0_nd5_C_CC1pi_RS.root");
-    TString vername = "Rein-Seghal"; 
-    TFile *ffile2 = new TFile(ipDir4+"basicplotso_5.4.0_nd5_C_CC1pi_GS.root");
-    TString vername2 = "Graczyk-Sobczyk";
-    TString savename ="neut540_nd5_cc1pi_comp2_";
-    */
+    /*TFile *ffile = new TFile(ipDir4+"basicplotso_5.3.6_nd5_C_GFGCCQE_ccnpi.root");
+    TString vername = "Global Fermi gas"; 
+    TFile *ffile2 = new TFile(ipDir4+"basicplotso_5.3.6_nd5_C_SFCCQE_ccnpi.root");
+    TString vername2 = "Spectral function";
+    TString savename ="neut540_nd5_ccnpi_comp2_gfg_vs_sf";*/
+
+    TFile *ffile = new TFile(ipDir4+"basicplotso_5.3.6_nd5_C_GFGCCQE_ccnpi.root");
+    TString vername = "NEUT 5.4.0"; 
+    TFile *ffile2 = new TFile(ipDir1+"basicplotso_5.3.6_nd5_C_GFGCCQE_ccnpi.root");
+    TString vername2 = "NEUT 5.3.6";
+    TString savename ="nd5_ccnpi_comp2_gfg";
+
+    /*TFile *ffile = new TFile(ipDir4+"basicplotso_5.3.6_nd5_C_SFCCQE_ccnpi.root");
+    TString vername = "NEUT 5.4.0"; 
+    TFile *ffile2 = new TFile(ipDir1+"basicplotso_5.3.6_nd5_C_SFCCQE_ccnpi.root");
+    TString vername2 = "NEUT 5.3.6";
+    TString savename ="nd5_ccnpi_comp2_sf";*/
+
     /*TFile *ffile = new TFile(ipDir4+"basicplotso_5.4.0_nd5_C_CC1pi_RS.root");
     TString vername = "Rein-Seghal"; 
     TFile *ffile2 = new TFile(ipDir4+"basicplotso_5.4.0_nd5_C_CC1pi_RS_20piless.root");
     TString vername2 = "RS + 20% #pi-less #Delta";
     TString savename ="neut540_nd5_cc1pi_comp2_rspiless_";
     */
-
-    /*TFile *ffile = new TFile(ipDir4+"basicplotso_5.3.6_nd5_C_GFGCCQE_cc1pi.root");
-    TString vername = "NEUT 5.4.0"; 
-    TFile *ffile2 = new TFile(ipDir1+"basicplotso_5.3.6_nd5_C_GFGCCQE_cc1pi.root");
-    TString vername2 = "NEUT 5.3.6";
-    TString savename ="nd5_cc1pi_gfg_neut540vs536_";*/
-
-    TFile *ffile = new TFile(ipDir4+"basicplotso_5.3.6_nd5_C_SFCCQE_cc1pi.root");
-    TString vername = "NEUT 5.4.0";
-    TFile *ffile2 = new TFile(ipDir1+"basicplotso_5.3.6_nd5_C_SFCCQE_cc1pi.root");
-    TString vername2 = "NEUT 5.3.6";
-    TString savename ="nd5_cc1pi_sf_neut540vs536_";
  
     TIter next(ffile->GetListOfKeys());
     TKey *key;
@@ -50,9 +50,9 @@ void plot_basics_comp2ver_cc1pi(){
 		TH1D *h2 = (TH1D*)ffile2->Get(obj->GetName());
             cout<<"plotting "<<obj->GetName()<<endl;
 		if(TString(obj->GetName()).Contains("\_Q2")) h->GetXaxis()->SetTitle("Q^{2}(GeV^{2})");
-		else if (TString(obj->GetName()).Contains("\_mode")) h->GetXaxis()->SetTitle("NEUT modes");
+		else if (TString(obj->GetName()).Contains("\_mode")) h->GetXaxis()->SetTitle("NEUT mode");
 		else if (TString(obj->GetName()).Contains("\_W2")) h->GetXaxis()->SetTitle("W^{2}(GeV^{2})");
-                else if (TString(obj->GetName()).Contains("\_npi")) h->GetXaxis()->SetTitle("No. of pions");
+		else if (TString(obj->GetName()).Contains("\_npi")) h->GetXaxis()->SetTitle("No. of pions");
 		else if (TString(obj->GetName()).Contains("\_anglemu")) h->GetXaxis()->SetTitle("#theta_{#mu}");
 		else if (TString(obj->GetName()).Contains("\_anglepi")) h->GetXaxis()->SetTitle("#theta_{#pi}");
 		else if (TString(obj->GetName()).Contains("\_angleneu\_in")) h->GetXaxis()->SetTitle("Incoming #theta_{nucleon}");
