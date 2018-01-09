@@ -1,35 +1,27 @@
 //
-//  read_xsec_ccqe_comp.C
+//  read_xsec_cc1pi_comp.C
 ////////////////////////////////////////////////////
 //
 //  To compare ccqe cross section with different model: global fermi gas, local fermigas, spectral fuction, Nieve 1p1h
 //
 ///////////////////////////////////////////////////
 
-void read_xsec_ccqe_comp(){
+void read_xsec_cc1pi_comp(){
     gROOT->ProcessLine(".x rootlogon.C");
     gROOT->ProcessLine(".L basicPlotUtil.C");
-    const Int_t NMODE4COMP = 4;
+    const Int_t NMODE4COMP = 2;
     TFile *pfile[NMODE4COMP];
-    /*pfile[0] = new TFile("/home/cvson/nuicise/neut/neut_5.4.0/src/neutsmpl/test_xsec_gfgccqe_dipole_nd5.root","READ");
-    pfile[1] = new TFile("/home/cvson/nuicise/neut/neut_5.4.0/src/neutsmpl/test_xsec_lfgccqe_nd5.root","READ");
-    pfile[2] = new TFile("/home/cvson/nuicise/neut/neut_5.4.0/src/neutsmpl/test_xsec_sfccqe_nd5.root","READ");
-    pfile[3] = new TFile("/home/cvson/nuicise/neut/neut_5.4.0/src/neutsmpl/test_xsec_1p1hccqe_nd5.root","READ");*/
-   
-    pfile[0] = new TFile("/home/cvson/nuicise/neut/neut_5.4.0/src/neutsmpl/test_xsec_v536_nd5_C_gfgccqe_bbba05.root","READ");
-    //pfile[1] = new TFile("/home/cvson/nuicise/neut/neut_5.4.0/src/neutsmpl/test_xsec_v536_nd5_C_lfgccqe_bbba05.root","READ");
-    pfile[1] = new TFile("/home/cvson/nuicise/neut/neut_5.4.0/src/neutsmpl/test_xsec_v536_nd5_C_lfgccqe_bbba05_rpa.root","READ");
-    pfile[2] = new TFile("/home/cvson/nuicise/neut/neut_5.4.0/src/neutsmpl/test_xsec_v536_nd5_C_sfccqe_bbba05.root","READ");
-    pfile[3] = new TFile("/home/cvson/nuicise/neut/neut_5.4.0/src/neutsmpl/test_xsec_v536_nd5_C_1p1hccqe.root","READ");
-
+    pfile[0] = new TFile("/home/cvson/nuicise/neut/neut_5.4.0/src/neutsmpl/test_xsec_cc1pi_gs_nd5_gfg.root","READ");
+    pfile[1] = new TFile("/home/cvson/nuicise/neut/neut_5.4.0/src/neutsmpl/test_xsec_cc1pi_rs_nd5_gfg.root","READ");
+    //pfile[2] = new TFile("/home/cvson/nuicise/neut/neut_5.3.6/src/neutsmpl/test_xsec_cc1pi_rs_nd5_gfg.root","READ");
     TString neutversion_s = "neut540";
-    TString neutversion = "NEUT v5.4.0";
-    //TString subname = "comp4modeccqe";
-    //char *modestr[NMODE4COMP]={"RFG, M_{A}^{QE} = 1.21 GeV/c^{2} ","LFG, M_{A}^{QE} = 1.21 GeV/c^{2}", "SF, M_{A}^{QE} = 1.21 GeV/c^{2}","Nieve, M_{A}^{QE} = 1.05 GeV/c^{2}"};
-
-     TString subname = "comp4modeccqev2";
-    char *modestr[NMODE4COMP]={"RFG, M_{A}^{QE} = 1.21 GeV/c^{2} ","LFG + RPA, M_{A}^{QE} = 1.21 GeV/c^{2}", "SF, M_{A}^{QE} = 1.21 GeV/c^{2}","Nieve, M_{A}^{QE} = 1.05 GeV/c^{2}"};    
-
+    TString neutversion = "NEUT v5.4.0";//no different in neut_3.6
+    //TString neutversion = "NEUT";
+    //placeholder for Minoo's model
+    TString subname = "comp3modecc1pi";
+    
+    char *modestr[NMODE4COMP]={"Graczyk-Sobczyk","Rein-Seghal"};
+    
     const int NCHANNEL = 27;//from neut 5.3.6 npnh included
     TH1D *hxsec[NMODE4COMP][NCHANNEL];
     char *namechan[NCHANNEL]={"tot","ccqe","ccppip","ccppi0","ccnpip","cccoh","ccgam","ccmpi","cceta","cck","ccdis","ncnpi0","ncppi0","ncppim","ncnpip","nccoh","ncngam","ncpgam","ncmpi","ncneta","ncpeta","nck0","nckp","ncdis","ncqep","ncqen","npnh"};
@@ -38,7 +30,6 @@ void read_xsec_ccqe_comp(){
     
     //color for histogram
     const char *colorcode[] = {
-        "#000000",
         "#0072B2",
         "#D55E00",
         "#CC79A7",
@@ -57,49 +48,13 @@ void read_xsec_ccqe_comp(){
         }
     }
     
-    //group by event topologies
-    const int NCHAN4SHOW = 6;
-    char *namechan4show[NCHAN4SHOW] = {"Total", "CC0#pi","CC1#pi","CC coherent","CC other","NC"};
-    char *namechan4show_s[NCHAN4SHOW] = {"Total", "CC0pi","CC1pi","CCcoherent","CCother","NC_s"};
-    TH1D *hxsec4show[NMODE4COMP][NCHAN4SHOW];
-    for (Int_t imode=0; imode<NMODE4COMP; ++imode) {
-        hxsec4show[imode][0] = (TH1D*)hxsec[imode][0]->Clone(Form("htotal_mode%d",imode));
-        hxsec4show[imode][1] = (TH1D*)hxsec[imode][1]->Clone(Form("hccqe_mode%d",imode));
-        hxsec4show[imode][1]->Add(hxsec[imode][26]);//npnh
-        
-        hxsec4show[imode][2] = (TH1D*)hxsec[imode][2]->Clone(Form("hcc1pi%d",imode));
-        hxsec4show[imode][2]->Add(hxsec[imode][3]);
-        hxsec4show[imode][2]->Add(hxsec[imode][4]);
-        
-        hxsec4show[imode][3] = (TH1D*)hxsec[imode][5]->Clone(Form("hcccoh%d",imode));
-        hxsec4show[imode][4] = (TH1D*)hxsec[imode][6]->Clone(Form("hccother%d",imode));
-        for (Int_t ichan=7; ichan<11; ++ichan) {
-            hxsec4show[imode][4]->Add(hxsec[imode][ichan]);
-        }
-        
-        hxsec4show[imode][5] = (TH1D*)hxsec[imode][11]->Clone(Form("hnc%d",imode));
-        for (Int_t ichan=12; ichan<26; ++ichan) {
-            hxsec4show[imode][5]->Add(hxsec[imode][ichan]);
-        }
-    }
-    
-    //color for the histogram
-    for (Int_t imode=0; imode<NMODE4COMP; ++imode) {
-        for (Int_t ichan=0; ichan<NCHAN4SHOW; ++ichan) {
-            hxsec4show[imode][ichan]->SetLineWidth(2);//increase line widht, default is 1
-            ci = TColor::GetColor(colorcode[imode]);
-            hxsec4show[imode][ichan]->SetLineColor(ci);
-        }
-    }
-    
-    //to add legend to the plot
-    TLegend* leg0 = new TLegend(.46, .2, 0.85, .5);
+    TLegend* leg0 = new TLegend(.2, .72, 0.5, .9);
     leg0->SetFillStyle(0);
     leg0->SetBorderSize(0);
     leg0->SetTextSize(18);
     leg0->SetTextFont(43);
     for (Int_t imode=0; imode<NMODE4COMP; ++imode) {
-        leg0->AddEntry(hxsec4show[imode][0],modestr[imode],"l");
+        leg0->AddEntry(hxsec[imode][0],modestr[imode],"l");
     }
     
 
@@ -109,9 +64,9 @@ void read_xsec_ccqe_comp(){
         new TCanvas;
         gStyle->SetOptStat(0);
         hxsec[0][ichan]->GetXaxis()->SetRangeUser(0,5);//check from 0-5 GeV
-        double ymax = TMath::Max(hxsec[0][ichan]->GetMaximum(), hxsec[1][ichan]->GetMaximum());
-	hxsec[0][ichan]->GetYaxis()->SetRangeUser(0,ymax*1.3);
         hxsec[0][ichan]->SetTitle("");
+        double ymax = TMath::Max(hxsec[0][ichan]->GetMaximum(), hxsec[1][ichan]->GetMaximum());
+        hxsec[0][ichan]->GetYaxis()->SetRangeUser(0, ymax*1.2);
         titleStyle(hxsec[0][ichan]);
         hxsec[0][ichan]->Draw("hist");
         for (Int_t imode=1; imode<NMODE4COMP; ++imode) {
@@ -126,17 +81,45 @@ void read_xsec_ccqe_comp(){
         l1->SetTextAlign(13);
         l1->Draw();
         gPad->Print(Form("plots/%s_xsec_numu_%s_channel_%s.eps",neutversion_s.Data(),subname.Data(),namechan[ichan]));
+    
     }
     
+    //group by event topologies
+    const int NCHAN4SHOW = 2;
+    char *namechan4show[NCHAN4SHOW] = {"CC single #pi","NC single #pi"};
+    char *namechan4show_s[NCHAN4SHOW] = {"cc1pi", "nc1pi"};
+    TH1D *hxsec4show[NMODE4COMP][NCHAN4SHOW];
+    for (Int_t imode=0; imode<NMODE4COMP; ++imode) {
+        hxsec4show[imode][0] = (TH1D*)hxsec[imode][2]->Clone(Form("hcc1pi_mode%d",imode));
+        hxsec4show[imode][0]->Add(hxsec[imode][3]);
+        hxsec4show[imode][0]->Add(hxsec[imode][4]);
+        
+        hxsec4show[imode][1] = (TH1D*)hxsec[imode][11]->Clone(Form("hcc1pi_mode%d",imode));
+       
+        for (Int_t ichan=12; ichan<15; ++ichan) {
+            hxsec4show[imode][1]->Add(hxsec[imode][ichan]);
+        }
+        
+       
+    }
+    
+    //color for the histogram
+    for (Int_t imode=0; imode<NMODE4COMP; ++imode) {
+        for (Int_t ichan=0; ichan<NCHAN4SHOW; ++ichan) {
+            hxsec4show[imode][ichan]->SetLineWidth(2);//increase line widht, default is 1
+            ci = TColor::GetColor(colorcode[imode]);
+            hxsec4show[imode][ichan]->SetLineColor(ci);
+        }
+    }
     
     for (Int_t ichan=0; ichan<NCHAN4SHOW; ++ichan) {
         new TCanvas;
         gStyle->SetOptStat(0);
         hxsec4show[0][ichan]->GetXaxis()->SetRangeUser(0,5);//check from 0-5 GeV
+        double ymax = TMath::Max(hxsec4show[0][ichan]->GetMaximum(), hxsec4show[1][ichan]->GetMaximum());
+        hxsec4show[0][ichan]->GetYaxis()->SetRangeUser(0, ymax*1.2);
         hxsec4show[0][ichan]->SetTitle("");
         titleStyle(hxsec4show[0][ichan]);
-	double ymax = TMath::Max(hxsec4show[0][ichan]->GetMaximum(), hxsec4show[1][ichan]->GetMaximum());
-        hxsec4show[0][ichan]->GetYaxis()->SetRangeUser(0,ymax*1.3);
         hxsec4show[0][ichan]->Draw("hist");
         for (Int_t imode=1; imode<NMODE4COMP; ++imode) {
             hxsec4show[imode][ichan]->Draw("hist same");
@@ -151,8 +134,6 @@ void read_xsec_ccqe_comp(){
         l1->Draw();
         gPad->Print(Form("plots/%s_xsec_numu_%s_channel_%s.eps",neutversion_s.Data(),subname.Data(),namechan4show_s[ichan]));
     }
-    
-    
     
     
     
