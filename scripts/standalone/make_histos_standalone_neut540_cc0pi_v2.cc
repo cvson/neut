@@ -215,7 +215,12 @@ void fill_histos(char *in_fname, char *out_fname){
                 //double Q2 = 2*0.938*(nvect->Crsx)*(nvect->Crsy)*((nvect->PartInfo(0))->fP.E()/1000);
                 //for cc1pro
                 double Q2 = abs(( (nvect->PartInfo(0))->fP - (nvect->PartInfo(muon_nbr))->fP)*( (nvect->PartInfo(0))->fP - (nvect->PartInfo(muon_nbr))->fP))*1e-6;
-                TLorentzVector qtransfer = (nvect->PartInfo(0))->fP - (nvect->PartInfo(muon_nbr))->fP;//new add
+                TLorentzVector p4mu = (nvect->PartInfo(muon_nbr))->fP;
+                TLorentzVector p4nu = (nvect->PartInfo(0))->fP;
+                TLorentzVector qtransfer = p4nu-p4mu;
+                double q0 = abs(qtransfer.E())/1000.;
+                double q3 = abs(qtransfer.P())/1000.;
+                
                 double q0 = abs(qtransfer.E());
                 double q3 = abs(qtransfer.P());
                 NEUT_q0vsq3->Fill(q0,q3);
@@ -279,6 +284,11 @@ void fill_histos(char *in_fname, char *out_fname){
     NEUT_q2rec->Write();
     NEUT_t->Write();
     NEUT_eta->Write();
+    
+    NEUT_mu_pvscosangle->Write();
+    NEUT_mu_cosanglevsp->Write();
+    NEUT_q0vsq3->Write();
+    NEUT_q3vsq0->Write();
     
     // ****************************
     // ***** XS NORMALISATION *****
