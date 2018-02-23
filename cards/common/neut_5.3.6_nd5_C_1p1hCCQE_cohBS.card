@@ -200,7 +200,7 @@ C      For Smith-Moniz, set 1.01, 1.05, 1.11, 1.21{default}, or 1.31
 C      For Nieves 1p1h, set 1.05 ( suggested value ) or 1.21.
 C      
 
-NEUT-MDLQE 2022
+NEUT-MDLQE 2002
 NEUT-MAQE 1.05
 
 C
