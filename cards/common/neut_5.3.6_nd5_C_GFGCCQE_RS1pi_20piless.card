@@ -3,8 +3,8 @@ C
 C EVCT-NEVT
 C   Number of events to generate
 C
-EVCT-NEVT  10
-CEVCT-NEVT  1000000
+CEVCT-NEVT  10
+EVCT-NEVT  1000000
 
 C--------------------------------------------------
 C
@@ -210,6 +210,34 @@ C		1 : Table
 C		2 : Hadronic tensor
 
 NEUT-MDL2P2H 1
+
+C  Single Pion Production Model (IFF)
+C  0: Rein-Seghal Model
+C     Dependent on MASPI, BGSCL, NRTYPE
+C  1: Graczyk and Sobczyk (default)
+C     Dependent on MASPI, BGSCL, CA5
+C  Must generate single pion total xsec for given
+C    MASPI, BGSCL, CA5, NRTYPE
+
+NEUT-IFF 0
+
+C  CC1pi Axial Mass
+NEUT-MASPI 1.21
+
+C  Nonresonant background scaling
+NEUT-BGSCL 1.0
+
+C  Rein-Seghal NRTYPE
+C  0: Electroproduction
+C  1: Neutrino-Production (default)
+NEUT-NRTYPE 1
+
+C Resonant Pion-less Delta Decay (20% Default)
+C   IPILESSDCY: 1: on (default), 0: off
+C   RPILESSDCY: Fraction of 1pi events (0.2 default)
+C
+NEUT-IPILESSDCY 1
+NEUT-RPILESSDCY 0.2
 
 C
 CNEUT-COHEPI

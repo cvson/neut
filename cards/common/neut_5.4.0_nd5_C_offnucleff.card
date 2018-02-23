@@ -3,8 +3,8 @@ C
 C EVCT-NEVT
 C   Number of events to generate
 C
-EVCT-NEVT  10
-CEVCT-NEVT  1000000
+
+EVCT-NEVT  1000000
 
 C--------------------------------------------------
 C
@@ -200,135 +200,12 @@ C      For Smith-Moniz, set 1.01, 1.05, 1.11, 1.21{default}, or 1.31
 C      For Nieves 1p1h, set 1.05 ( suggested value ) or 1.21.
 C      
 
-NEUT-MDLQE 22
-NEUT-MAQE 1.21
+NEUT-MDLQE 2002
+NEUT-MAQE 1.05
 
+C NEFF : Nuclear effect in nuclear  0 : on ( default )  1 : off
 C
-CNEUT-MDL2P2H
-C        2p2h implementation
-C		1 : Table
-C		2 : Hadronic tensor
-
-NEUT-MDL2P2H 1
-
-C
-CNEUT-COHEPI
-C        Coherent pion model 
-C        0 : Rein & Sehgal
-
-NEUT-COHEPI 0
-
-C
-CNEUT-DIFPI 
-C        0 : Disable diffractive pion production mode
-C
-
-NEUT-DIFPI  0
-
-C
-CNEUT-EFVER
-C        nucleon momentum distribution
-C		0 : follow the experimental momentum distribution ( original )
-C		1 : Simple Local Fermi-gas 
-
-NEUT-EFVER 0
-
-C
-CNUCRES-FRMGAS
-C        1 : Global Fermi Gas ( except for 2p2h : always uses local fermi gas )
-C		2 : Local Fermi Gas for all modes ( default )
-
-NUCRES-FRMGAS 1
-
-C
-C FEFQE : Factor to modify pion quasi-elastic scattering mean free path
-C                           ( momentum of pi < 500MeV/c )
-C         ( neut 5.4.0 default : 1.069 )
-
-NEUT-FEFQE 1.
-
-C
-C
-C FEFABS : Factor to modify pion absorption mean free path
-C          ( Prior to 2011: All MFP scaling = 1.0 )
-C          ( Tune to pion scattering data: 1.1 )
-C          ( neut 5.4.0 default : 1.404 )
-
-NEUT-FEFABS 1.1
-
-C
-C
-C FEFINEL : Factor to modify pion hadron production mean free path
-C                           ( momentum of pi > 500MeV/c )
-C          ( neut 5.4.0 default : 1.002 )
-
-NEUT-FEFINEL 1.
-
-C
-C
-C FEFCOH : Factor to modify pion foward scattering mean free path
-C                           ( momentum of pi > 500MeV/c )
-
-NEUT-FEFCOH 1.
-
-C
-C
-C FEFQEH : Factor to modify quasielastic scattering mean free path
-C                           ( momentum of pi > 500MeV/c )
-C          ( Tune to pion scattering data: 1.8 )
-C          ( neut 5.4.0 default : 1.824 )
-
-
-NEUT-FEFQEH 1.8
-
-C
-C
-C FEFCX  : Factor to modify charge exchange amplitude
-C                           ( momentum of pi < 500MeV/c )
-C          ( neut 5.4.0 default : 0.697 )
-
-NEUT-FEFCX 1.
-
-C
-C
-C FEFCXH  : Factor to modify charge exchange mean free path
-C                           ( momentum of pi > 500MeV/c )
-C          ( Tune to pion scattering data: 1.8 )
-
-NEUT-FEFCXH 1.8
-
-C
-C
-C FEFQEHF: Portion of QE scattering that has inelastic-like kinematics 
-C                           ( momentum of pi > 500MeV/c )
-C
-C           0. ! all forward-like scattering (prior to 2011)
-C              ! ( 1 = Tune to pion scattering data, mix of quasielastic
-C                     and forward-like scattering)
-
-NEUT-FEFQEHF 1.
-
-C
-C FEFCXHF: Portion of inel. scattering that includes true CX
-C                           ( momentum of pi > 500MeV/c , MODH=1 only)
-C
-C NEUT-FEFCXHF 0. ! pi+,neutron charge exchange and inelastic
-C                   cross sections separated (default)
-
-NEUT-FEFCXHF 0.
-
-C
-C
-C FEFCOHF: Amount of forward scatter relative to quasi-elastic (p<500)
-C
-
-NEUT-FEFCOHF 0.
-
-C
-C FEFCOUL: Pion trajectory modified by Coulomb field
-C
-
-NEUT-FEFCOUL 0
+NEUT-NEFF 1
 
 C
 C-----------------------------------------------------------------------
