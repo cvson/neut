@@ -122,7 +122,7 @@ C                           n = 51,52 : neutral current elastic
 C                           n = 22,42,43 : single eta production 
 C                           n = 23,44,45 : single  K  production 
 C
-NEUT-MODE   0
+NEUT-MODE   -1
 C
 
 C-----------------------------------------------------------------------
@@ -163,6 +163,9 @@ C          1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 2
 CNEUT-CRS  1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1.
 CNEUT-CRSB 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1. 1.
 
+NEUT-CRS   0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 1. 1. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
+NEUT-CRSB  0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 1. 1. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
+
 C-----------------------------------------------------------------------
 C
 C NEUT-MDLQE
@@ -200,8 +203,8 @@ C      For Smith-Moniz, set 1.01, 1.05, 1.11, 1.21{default}, or 1.31
 C      For Nieves 1p1h, set 1.05 ( suggested value ) or 1.21.
 C      
 
-NEUT-MDLQE 2022
-NEUT-MAQE 1.05
+NEUT-MDLQE 22
+NEUT-MAQE 1.21
 
 C
 CNEUT-MDL2P2H
@@ -231,14 +234,14 @@ C        nucleon momentum distribution
 C		0 : follow the experimental momentum distribution ( original )
 C		1 : Simple Local Fermi-gas 
 
-NEUT-EFVER 1
+NEUT-EFVER 0
 
 C
 CNUCRES-FRMGAS
-C       1 : Global Fermi Gas ( except for 2p2h : always uses local fermi gas )
+C        1 : Global Fermi Gas ( except for 2p2h : always uses local fermi gas )
 C		2 : Local Fermi Gas for all modes ( default )
 
-NUCRES-FRMGAS 2
+NUCRES-FRMGAS 1
 
 C
 C FEFQE : Factor to modify pion quasi-elastic scattering mean free path
@@ -277,6 +280,7 @@ C FEFQEH : Factor to modify quasielastic scattering mean free path
 C                           ( momentum of pi > 500MeV/c )
 C          ( Tune to pion scattering data: 1.8 )
 C          ( neut 5.4.0 default : 1.824 )
+
 
 NEUT-FEFQEH 1.8
 
