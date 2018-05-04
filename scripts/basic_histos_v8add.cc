@@ -1560,7 +1560,8 @@ fill_histograms(NeutVect *nvect, TH1D *h[][NHIST1D][NFLAVOR], int idx, int ip_id
     fill_enureco_hist(nvect,    h[idx][25][ip_idx], xnorm);
     fill_enubias_hist(nvect,    h[idx][26][ip_idx], xnorm);
     
-    if(idx!=6)fill_wres_hist(nvect,    h[idx][33][ip_idx], xnorm);
+    //if(idx!=6)fill_wres_hist(nvect,    h[idx][33][ip_idx], xnorm);
+    if(idx!=6 && idx!=3 && idx!=4)fill_wres_hist(nvect,    h[idx][33][ip_idx], xnorm);
     else fill_wdis_hist(nvect,    h[idx][33][ip_idx], xnorm);//for DIS fill separately
     
     return 0;
