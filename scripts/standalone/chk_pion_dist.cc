@@ -121,13 +121,13 @@ Int_t
 chk_pion_dist(char *fname,char *fname_out)
 {
 
-  gSystem->Load("../neutclass/neutvtx.so");
-  gSystem->Load("../neutclass/neutpart.so");
-  gSystem->Load("../neutclass/neutfsipart.so");
-  gSystem->Load("../neutclass/neutfsivert.so");
-  gSystem->Load("../neutclass/neutnucfsistep.so");
-  gSystem->Load("../neutclass/neutnucfsivert.so");
-  gSystem->Load("../neutclass/neutvect.so");
+  gSystem->Load("/home/t2k/cvson/MCSimulation/neut_5.4.0/src/neutclass/neutvtx.so");
+  gSystem->Load("/home/t2k/cvson/MCSimulation/neut_5.4.0/src/neutclass/neutpart.so");
+  gSystem->Load("/home/t2k/cvson/MCSimulation/neut_5.4.0/src/neutclass/neutfsipart.so");
+  gSystem->Load("/home/t2k/cvson/MCSimulation/neut_5.4.0/src/neutclass/neutfsivert.so");
+  gSystem->Load("/home/t2k/cvson/MCSimulation/neut_5.4.0/src/neutclass/neutnucfsistep.so");
+  gSystem->Load("/home/t2k/cvson/MCSimulation/neut_5.4.0/src/neutclass/neutnucfsivert.so");
+  gSystem->Load("/home/t2k/cvson/MCSimulation/neut_5.4.0/src/neutclass/neutvect.so");
   
   TFile *f;
   f = new TFile(fname);
