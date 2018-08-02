@@ -231,7 +231,7 @@ C        nucleon momentum distribution
 C		0 : follow the experimental momentum distribution ( original )
 C		1 : Simple Local Fermi-gas 
 
-NEUT-EFVER 0
+NEUT-EFVER 1
 
 C
 CNUCRES-FRMGAS

@@ -3,8 +3,8 @@ C
 C EVCT-NEVT
 C   Number of events to generate
 C
-EVCT-NEVT  1000
-CEVCT-NEVT  1000000
+CEVCT-NEVT  1000
+EVCT-NEVT  1000000
 
 C--------------------------------------------------
 C

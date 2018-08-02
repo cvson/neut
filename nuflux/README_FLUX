@@ -1,0 +1,12 @@
+### T2K off-axis flux
+nd5_tuned13av1.1_13anom_run1-7c_fine.root/enu_nd5_tuned13a_numu
+nd5_tuned13av1.1_13anom_run5c-7b_antinumode_fine.root/enu_nd5_tuned13a_numub
+
+### T2K on-axis flux
+nd34_tuned_11bv3.1_250ka.root/ing3_tune_numu --> neutrino
+run5c_tune_INGRID_13a_1_1.root/ing3_tune_numub --> antineutrino
+
+### WAGASCI, 1.5 degree off-axis
+wagasci_flux_250pos_kenji.root/hnd7
+
+
