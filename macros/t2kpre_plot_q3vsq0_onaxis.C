@@ -2,7 +2,7 @@
     gROOT->ProcessLine(".x /Users/soncao/rootlogon.C");
     gROOT->ProcessLine(".L /Users/soncao/basicPlotUtil.C");
     
-    TString neutversion = "NEUT v5.4.0";
+    TString neutversion = "NEUT v5.4.0, On-axis";
     
     //for CC 1pion resonance
     /*TString neutversion_s = "neut540_1piGS";
@@ -27,9 +27,9 @@
     TFile *pfile = new TFile("basicplotsv8_neut540_card_5.3.6_nd5_C_1p1hCCQE_ccqemec.root","READ");
     int channelindex = 4;//5 cc1pi*/
     
-    TString neutversion_s = "neut540_default";
-    TString nuclearmodel_s = "default";
-    TFile *pfile = new TFile("basicplotsv8_neut540_card_5.4.0_nd5_C_1p1hCCQE_default.root","READ");
+    TString neutversion_s = "neut540_default_onaxis";
+    TString nuclearmodel_s = "(default)";
+    TFile *pfile = new TFile("basicplotsv8_neut540_card_5.4.0_nd2_C_1p1hCCQE_default.root","READ");
     
     /*TString neutversion = "NEUT v5.3.2";
     TString neutversion_s = "neut532_rfgrpa";
@@ -78,7 +78,7 @@
         h_2d_combined[i][hist_index][flavorindex]->GetXaxis()->SetTitle("q3=|q3| true three momentum transfer (GeV)");
         h_2d_combined[i][hist_index][flavorindex]->SetTitle("");
         new TCanvas;
-            gPad->SetRightMargin(gPad->GetRightMargin()*1.2);
+               gPad->SetRightMargin(gPad->GetRightMargin()*1.2);
             TGaxis::SetMaxDigits(3);
         titleStyle(h_2d_combined[i][hist_index][flavorindex]);
         h_2d_combined[i][hist_index][flavorindex]->Draw("colz");

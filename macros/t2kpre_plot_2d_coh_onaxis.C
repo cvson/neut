@@ -2,16 +2,16 @@
     gROOT->ProcessLine(".x /Users/soncao/rootlogon.C");
     gROOT->ProcessLine(".L /Users/soncao/basicPlotUtil.C");
     
-    TString neutversion = "NEUT v5.4.0";
+    TString neutversion = "NEUT v5.4.0, On-axis";
     
     //for CC 1pion coherent
-    TString neutversion_s = "neut540_cohRS";
+    TString neutversion_s = "neut540_onaxis_cohRS";
     TString nuclearmodel_s = "RS model";
-    TFile *pfile = new TFile("basicplotsv8add_neut540_card_5.3.6_nd5_C_1p1hCCQE_coh.root","READ");
+    TFile *pfile = new TFile("basicplotsv8add_neut540_card_5.3.6_nd2_C_1p1hCCQE_coh.root","READ");
     
-    /*TString neutversion_s = "neut540_cohBS";
+    /*TString neutversion_s = "neut540_onaxis_cohBS";
     TString nuclearmodel_s = "BS model";
-    TFile *pfile = new TFile("basicplotsv8add_neut540_card_5.3.6_nd5_C_1p1hCCQE_cohBS.root","READ");
+    TFile *pfile = new TFile("basicplotsv8add_neut540_card_5.3.6_nd2_C_1p1hCCQE_cohBS.root","READ");
     */
     
     const int NFLAVOR = 6;

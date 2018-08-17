@@ -2,33 +2,26 @@
     gROOT->ProcessLine(".x /Users/soncao/rootlogon.C");
     gROOT->ProcessLine(".L /Users/soncao/basicPlotUtil.C");
     
-    TString neutversion = "NEUT v5.4.0";
+    TString neutversion = "NEUT";
     const Int_t NMODEL2COMP = 3;
     TFile *pfile[NMODEL2COMP];
-    /*
-     TString neutversion_s = "neut540";
-     pfile[0] = new TFile("basicplotsv7_neut540_card_5.4.0_nd5_C_1p1hCCQE_default.root","READ");
-    pfile[1] = new TFile("basicplotsv7_neut540_card_5.4.0_nd5_C_1p1hCCQE_1piRS_0piless.root","READ");
-    pfile[2] = new TFile("basicplotsv7_neut540_card_5.4.0_nd5_C_1p1hCCQE_1piRS.root","READ");*/
+
      
-     TString neutversion_s = "neut540";
-     pfile[0] = new TFile("basicplotsv8_neut540_card_5.3.6_nd5_C_1p1hCCQE_ccqemec.root","READ");
-     pfile[1] = new TFile("basicplotsv8_neut540_card_5.3.6_nd5_C_1p1hCCQE_ccqemec_fmOFF.root","READ");
-     pfile[2] = new TFile("basicplotsv8_neut540_card_5.3.6_nd5_C_1p1hCCQE_ccqemec_pauliOFF.root","READ");
+     TString neutversion_s = "neut542";
+
+    pfile[0] = new TFile("basicplotsv8_neut542_5.3.6_nd5_C_1p1hCCQE_minoo_pipos.root","READ");
+    //pfile[1] = new TFile("basicplotsv8_neut540_card_5.4.0_nd5_C_1p1hCCQE_default_pipos.root","READ");
     
-    /*TString neutversion_s = "neut540";
-    pfile[0] = new TFile("basicplotsv8_neut540_card_5.3.6_nd5_C_GFGCCQE_ccqemec.root","READ");
-    pfile[1] = new TFile("basicplotsv8_neut540_card_5.3.6_nd5_C_GFGCCQE_ccqemec_fmOFF.root","READ");
-    pfile[2] = new TFile("basicplotsv8_neut540_card_5.3.6_nd5_C_GFGCCQE_ccqemec_pauliOFF.root","READ");
-     */
+    pfile[1] = new TFile("basicplotsv8_neut542_card_5.3.6_nd5_C_1p1hCCQE_inc_cohBS_pipos.root","READ");
+    //pfile[1] = new TFile("basicplotsv8_neut532_card_5.3.6_nd5_C_GFGCCQErpa.root","READ");
+    pfile[2] = new TFile("basicplotsv8_neut532_card_5.3.6_nd5_C_GFGCCQErpa_pipos.root","READ");
     
     const int NFLAVOR = 6;
     const int NHIST1D = 34;
     const int NCHANNEL = 11;//12?
     const int NHIST2D = 8;
     
-    char *model_name[NMODEL2COMP]={"1p1h-default\0" ,"Fermi Momentum OFF\0", "Pauli blocking OFF\0" };
-    
+    char *model_name[NMODEL2COMP]={"NEUT v5.4.0 (Minoo)","NEUT v5.4.0 default" ,"NEUT v5.3.2 (RFG+RPA)"};
  
     
     
@@ -55,7 +48,7 @@
         "iniPiP\0","iniPicos\0","finPiP\0","finPicos\0","finPiPdiff\0","finPicosdiff\0","wres\0"
     };
     //to plots
-    const int NVAR2PLOT = 12;
+    const int NVAR2PLOT = 13;
     TH1D *h_1d_comp[NMODEL2COMP][NVAR2PLOT];
     int hist_index[NVAR2PLOT];
     char* xtitle[NVAR2PLOT];
@@ -68,7 +61,7 @@
     char *ytitle = "Arbitrary unit";
     
     int flavorindex = 1;//for numu beam
-    int topoindex = 3;//CCQE
+    int topoindex = 8;//CC0pi topo
     //no of pion
     
     hist_index[0] = 0;//Q2
@@ -128,7 +121,7 @@
     ymaxscale[6]= 1.2;
     
     hist_index[7]= 10;//muon momentum
-    xtitle[7]= "Outgoing nucleon cos #theta_{n}";
+    xtitle[7]= "Incoming nucleon cos #theta_{n}";
     xminrange[7]= -1;
     xmaxrange[7]= 1;//
     xlegmin[7]= 0.55;
@@ -136,12 +129,12 @@
     ymaxscale[7]= 1.2;
     
     hist_index[8]= 16;//muon momentum
-    xtitle[8]= "Rescattering nucleon (FSI) P_{n} (GeV)";
+    xtitle[8]= "Rescattering/outgoing nucleon P_{n} (GeV)";
     xminrange[8]= 0;
     xmaxrange[8]= 2;//
     xlegmin[8]= 0.55;
     ylegmin[8]= 0.45;
-    ymaxscale[8]= 1.2;
+    ymaxscale[8]= 1.5;
     
     hist_index[9]= 19;//muon momentum
     xtitle[9]= "Interaction position (radius) in nucleus";
@@ -153,20 +146,28 @@
     
     
     hist_index[10]= 21;//muon momentum
-    xtitle[10]= "No. of protons (FSI)";
+    xtitle[10]= "No. of protons";
     xminrange[10]= 0;
     xmaxrange[10]= 10;//
     xlegmin[10]= 0.55;
     ylegmin[10]= 0.45;
-    ymaxscale[10]= 1.2;
+    ymaxscale[10]= 1.5;
     
     hist_index[11]= 12;//muon momentum
-    xtitle[11]= "Incoming nucleon cos #theta_{n}";
+    xtitle[11]= "Outgoing nucleon cos #theta_{n}";
     xminrange[11]= -1;
     xmaxrange[11]= 1;//
-    xlegmin[11]= 0.45;
+    xlegmin[11]= 0.25;
     ylegmin[11]= 0.45;
     ymaxscale[11]= 1.2;
+    
+    hist_index[12]= 20;//muon momentum
+    xtitle[12]= "True interaction mode index";
+    xminrange[12]= 0;
+    xmaxrange[12]= 55;//
+    xlegmin[12]= 0.45;
+    ylegmin[12]= 0.45;
+    ymaxscale[12]= 1.2;
     
   
     
@@ -260,16 +261,15 @@
         
         lowerPad->cd();
         lowerPad->SetBottomMargin(lowerPad->GetBottomMargin()*2.);
-        h_1d_comprat[0][ivar]->GetYaxis()->SetTitle("MC/GS");
+        h_1d_comprat[0][ivar]->GetYaxis()->SetTitle("MC/w/FSI");
         titleStyle2x(h_1d_comprat[0][ivar],3.);
         h_1d_comprat[0][ivar]->Draw("hist");
-        h_1d_comprat[0][ivar]->GetYaxis()->SetRangeUser(0,2);
+        h_1d_comprat[0][ivar]->GetYaxis()->SetRangeUser(0,2.);
         for ( int ifile = 1 ; ifile < NMODEL2COMP ; ifile++ ){
             h_1d_comprat[ifile][ivar]->Draw("hist same");
         }
         
-       // c1->Print(Form("plots/%s_%s_%s_%s_gfgnucleff.eps",neutversion_s.Data(),flavor_str[flavorindex],hist_type[hist_index[ivar]],hist_kind[topoindex]));
-        c1->Print(Form("plots/%s_%s_%s_%s_1p1hnucleff.eps",neutversion_s.Data(),flavor_str[flavorindex],hist_type[hist_index[ivar]],hist_kind[topoindex]));
+        c1->Print(Form("plots/%s_%s_%s_%s_def540vsref532.eps",neutversion_s.Data(),flavor_str[flavorindex],hist_type[hist_index[ivar]],hist_kind[topoindex]));
         
         delete leg0;
         delete c1;

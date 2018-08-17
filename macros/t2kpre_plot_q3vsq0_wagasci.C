@@ -27,16 +27,16 @@
     TFile *pfile = new TFile("basicplotsv8_neut540_card_5.3.6_nd5_C_1p1hCCQE_ccqemec.root","READ");
     int channelindex = 4;//5 cc1pi*/
     
-    TString neutversion_s = "neut540_default";
-    TString nuclearmodel_s = "default";
-    TFile *pfile = new TFile("basicplotsv8_neut540_card_5.4.0_nd5_C_1p1hCCQE_default.root","READ");
+    TString neutversion_s = "wagasci_neut540_default";
+    TString nuclearmodel_s = "Nieves 1p1h";
+    TFile *pfile = new TFile("basicplotsv9_neut540_card_5.3.6_wagasci_C_1p1hCCQE_ccqemec.root","READ");
     
     /*TString neutversion = "NEUT v5.3.2";
     TString neutversion_s = "neut532_rfgrpa";
     TString nuclearmodel_s = "(RFG+RPA CCQE, GS CC1#pi)";
     TFile *pfile = new TFile("basicplotsv8_neut532_card_5.3.6_nd5_C_GFGCCQErpa.root","READ");*/
     
-    int channelindex = 6;//5 cc1pi 4 mec 3 ccqe cc0pi 8
+    int channelindex = 3;//5 cc1pi 4 mec 3 ccqe cc0pi 8
     
      int hist_index = 4;//q3vsq0
     
@@ -44,9 +44,9 @@
     
     TH2D *h_2d_combined[12][6][6];//3rd is Evsk for in nuclear 4th is coslepvsP, 5th is bindingEvsk
     
-    char hist_kind[NCHANNEL][16]={"all\0"    ,"CCall\0"    ,"NCall\0",
-        "CCQE\0"   ,"CCMEC\0"    ,"CC1pi\0",
-        "CCDIS\0","CCCOH\0","CCtopo0pi\0","CCtopo1pi\0","CCtopoNpi\0"};
+    char hist_kind[NCHANNEL][16]={"all\0"    ,"CCall\0"    ,"CCQE\0",
+        "MEC\0"   ,"CCtopo0pi\0"    ,"CCtopo0pi0\0",
+        "CCtopo0pi1\0","CCtopo0pi2\0","CCtopo0pi3\0","CCtopo0pi4\0","CCtopo0pi5\0"};
     
     
     char hist_type_2d[6][16]={"in_nuc1_p_rad\0","out_nuc1_p_rad\0","in_nuc1_Evsk\0","coslepvsP\0","q3vsq0\0","bindEvsk\0"};//newadd
@@ -78,8 +78,6 @@
         h_2d_combined[i][hist_index][flavorindex]->GetXaxis()->SetTitle("q3=|q3| true three momentum transfer (GeV)");
         h_2d_combined[i][hist_index][flavorindex]->SetTitle("");
         new TCanvas;
-            gPad->SetRightMargin(gPad->GetRightMargin()*1.2);
-            TGaxis::SetMaxDigits(3);
         titleStyle(h_2d_combined[i][hist_index][flavorindex]);
         h_2d_combined[i][hist_index][flavorindex]->Draw("colz");
         TLatex *l1 = new TLatex(0.3, 0.98, Form("%s,%s %s,%s",neutversion.Data(),flavor_strlatex[flavorindex],hist_kind[i],nuclearmodel_s.Data()));

@@ -3,33 +3,23 @@
     gROOT->ProcessLine(".L /Users/soncao/basicPlotUtil.C");
     
     TString neutversion = "NEUT v5.4.0";
-    const Int_t NMODEL2COMP = 3;
+    TString neutversion_s = "neut540";
+    const Int_t NMODEL2COMP = 2;
     TFile *pfile[NMODEL2COMP];
-    /*
-     TString neutversion_s = "neut540";
-     pfile[0] = new TFile("basicplotsv7_neut540_card_5.4.0_nd5_C_1p1hCCQE_default.root","READ");
-    pfile[1] = new TFile("basicplotsv7_neut540_card_5.4.0_nd5_C_1p1hCCQE_1piRS_0piless.root","READ");
-    pfile[2] = new TFile("basicplotsv7_neut540_card_5.4.0_nd5_C_1p1hCCQE_1piRS.root","READ");*/
-     
-     TString neutversion_s = "neut540";
-     pfile[0] = new TFile("basicplotsv8_neut540_card_5.3.6_nd5_C_1p1hCCQE_ccqemec.root","READ");
-     pfile[1] = new TFile("basicplotsv8_neut540_card_5.3.6_nd5_C_1p1hCCQE_ccqemec_fmOFF.root","READ");
-     pfile[2] = new TFile("basicplotsv8_neut540_card_5.3.6_nd5_C_1p1hCCQE_ccqemec_pauliOFF.root","READ");
+    //pfile[0] = new TFile("basicplotsv7_neut540_card_5.4.0_nd5_C_1p1hCCQE_default.root","READ");
+    //pfile[1] = new TFile("basicplotsv7_neut540_card_5.4.0_nd5_C_1p1hCCQE_1piRS_SFCCQE_RSCOH.root","READ");
     
-    /*TString neutversion_s = "neut540";
-    pfile[0] = new TFile("basicplotsv8_neut540_card_5.3.6_nd5_C_GFGCCQE_ccqemec.root","READ");
-    pfile[1] = new TFile("basicplotsv8_neut540_card_5.3.6_nd5_C_GFGCCQE_ccqemec_fmOFF.root","READ");
-    pfile[2] = new TFile("basicplotsv8_neut540_card_5.3.6_nd5_C_GFGCCQE_ccqemec_pauliOFF.root","READ");
-     */
+    pfile[0] = new TFile("basicplotsv8add_neut540_card_5.3.6_nd5_C_1p1hCCQE_cohBS.root","READ");
+    pfile[1] = new TFile("basicplotsv8add_neut540_card_5.3.6_nd5_C_1p1hCCQE_coh.root","READ");
     
     const int NFLAVOR = 6;
     const int NHIST1D = 34;
     const int NCHANNEL = 11;//12?
     const int NHIST2D = 8;
     
-    char *model_name[NMODEL2COMP]={"1p1h-default\0" ,"Fermi Momentum OFF\0", "Pauli blocking OFF\0" };
+    char *model_name[NMODEL2COMP]={"Berger-Segnal\0" ,"Rein-Seghal\0"};
     
- 
+    
     
     
     
@@ -39,9 +29,13 @@
     char flavor_strlatex[NFLAVOR][30]={"#nu_e\0"  ,"#nu_{#mu}\0"    ,"#nu_{#tau}\0",
         "#bar{#nu}_e" ,"#bar{#nu}_{#mu}\0","#bar{#nu}_{#tau}\0"};
     
-    char hist_kind[NCHANNEL][16]={"all\0"    ,"CCall\0"    ,"NCall\0",
+    /*char hist_kind[NCHANNEL][16]={"all\0"    ,"CCall\0"    ,"NCall\0",
         "CCQE\0"   ,"CCMEC\0"    ,"CC1pi\0",
-        "CCDIS\0","CCCOH\0","CCtopo0pi\0","CCtopo1pi\0","CCtopoNpi\0"};
+        "CCDIS\0","CCCOH\0","CCtopo0pi\0","CCtopo1pi\0","CCtopoNpi\0"};*/
+    char hist_kind[11][16]={"all\0"    ,"CCall\0"    ,"NCall\0",
+        "dis21\0"   ,"dis26\0"    ,"CC1pi\0",
+        "CCDIS\0","CCCOH\0","res11\0","res12\0","res13\0"};
+    
     
     char hist_type[NHIST1D][16]={"enu\0"          ,"plep\0"       ,"in_nuc1_p\0",
         "in_nuc2_p\0"    ,"out_nuc1_p\0" ,"out_nuc2_p\0",
@@ -55,7 +49,7 @@
         "iniPiP\0","iniPicos\0","finPiP\0","finPicos\0","finPiPdiff\0","finPicosdiff\0","wres\0"
     };
     //to plots
-    const int NVAR2PLOT = 12;
+    const int NVAR2PLOT = 8;
     TH1D *h_1d_comp[NMODEL2COMP][NVAR2PLOT];
     int hist_index[NVAR2PLOT];
     char* xtitle[NVAR2PLOT];
@@ -64,28 +58,31 @@
     double xlegmin[NVAR2PLOT];
     double ylegmin[NVAR2PLOT];
     double ymaxscale[NVAR2PLOT];
+    double ratmax[NVAR2PLOT];
     
     char *ytitle = "Arbitrary unit";
     
     int flavorindex = 1;//for numu beam
-    int topoindex = 3;//CCQE
+    int topoindex = 7;//CCcoh
     //no of pion
     
-    hist_index[0] = 0;//Q2
-    xtitle[0]= "E_{#nu} (GeV)";
+    hist_index[0] = 22;
+    xtitle[0] = "No. of #pi";
     xminrange[0]= 0.;
-    xmaxrange[0]= 2.0;//
+    xmaxrange[0]= 7.;//
     xlegmin[0]= 0.55;
     ylegmin[0]= 0.65;
-    ymaxscale[0]= 1.2;
+    ymaxscale[0]= 5.;
+    ratmax[0] = 10.;
     
     hist_index[1] = 7;//Q2
     xtitle[1]= "Q^{2} (GeV^{2})";
     xminrange[1]= 0.;
-    xmaxrange[1]= 2.0;//
+    xmaxrange[1]= 0.5;//
     xlegmin[1]= 0.55;
     ylegmin[1]= 0.65;
-    ymaxscale[1]= 1.2;
+    ymaxscale[1]= 5.;
+    ratmax[1] = 10.;
     
     hist_index[2]= 1;//muon momentum
     xtitle[2]= "P_{#mu} (GeV)";
@@ -93,7 +90,8 @@
     xmaxrange[2]= 2.0;//
     xlegmin[2]= 0.55;
     ylegmin[2]= 0.65;
-    ymaxscale[2]= 1.2;
+    ymaxscale[2]= 6.;
+    ratmax[2] = 10.;
     
     hist_index[3]= 6;//muon momentum
     xtitle[3]= "cos #theta_{#mu}";
@@ -101,73 +99,79 @@
     xmaxrange[3]= 1.;//
     xlegmin[3]= 0.55;
     ylegmin[3]= 0.65;
-    ymaxscale[3]= 1.2;
+    ymaxscale[3]= 5.;
+    ratmax[3] = 10.;
     
-    hist_index[4]= 2;//muon momentum
-    xtitle[4]= "Incoming nucleon P_{n} (GeV)";
-    xminrange[4]= 0.;
-    xmaxrange[4]= 0.5;//
+    hist_index[4]= 24;//Wsq
+    xtitle[4]= "W^{2} (GeV^{2})";
+    xminrange[4]= 1.;
+    xmaxrange[4]= 4.;//
     xlegmin[4]= 0.55;
     ylegmin[4]= 0.65;
-    ymaxscale[4]= 1.2;
+    ymaxscale[4]= 5.;
+    ratmax[4] = 10.;
     
-    hist_index[5]= 4;//muon momentum
-    xtitle[5]= "Outgoing nucleon P_{n} (GeV)";
+    hist_index[5]= 23;//Wsq
+    xtitle[5]= "|t|^{2}-momentum transfer (GeV^{2})";
     xminrange[5]= 0.;
-    xmaxrange[5]= 2.;//
+    xmaxrange[5]= 0.2;//
     xlegmin[5]= 0.55;
     ylegmin[5]= 0.65;
-    ymaxscale[5]= 1.2;
+    ymaxscale[5]= 3.;
+    ratmax[5] = 10.;
     
-    hist_index[6]= 8;//muon momentum
-    xtitle[6]= "Incoming nucleon cos #theta_{n}";
-    xminrange[6]= -1;
-    xmaxrange[6]= 1;//
+    hist_index[6]= 28;//Wsq
+    xtitle[6]= "cos(#theta_{#pi})";
+    xminrange[6]= -1.;
+    xmaxrange[6]= 1.;//
     xlegmin[6]= 0.55;
-    ylegmin[6]= 0.45;
-    ymaxscale[6]= 1.2;
+    ylegmin[6]= 0.65;
+    ymaxscale[6]= 3.;
+    ratmax[6] = 10.;
     
-    hist_index[7]= 10;//muon momentum
-    xtitle[7]= "Outgoing nucleon cos #theta_{n}";
-    xminrange[7]= -1;
-    xmaxrange[7]= 1;//
+    hist_index[7]= 27;//Wsq
+    xtitle[7]= "P_{#pi} (GeV)";
+    xminrange[7]= 0.;
+    xmaxrange[7]= 1.5;//
     xlegmin[7]= 0.55;
-    ylegmin[7]= 0.45;
-    ymaxscale[7]= 1.2;
+    ylegmin[7]= 0.65;
+    ymaxscale[7]= 10.;
+    ratmax[7] = 10.;
     
-    hist_index[8]= 16;//muon momentum
-    xtitle[8]= "Rescattering nucleon (FSI) P_{n} (GeV)";
-    xminrange[8]= 0;
-    xmaxrange[8]= 2;//
+    
+    /*hist_index[8]= 30;//Wsq
+    xtitle[8]= "Final cos(#theta_{#pi})";
+    xminrange[8]= -1.;
+    xmaxrange[8]= 1.;//
     xlegmin[8]= 0.55;
-    ylegmin[8]= 0.45;
-    ymaxscale[8]= 1.2;
+    ylegmin[8]= 0.65;
+    ymaxscale[8]= 5.;
     
-    hist_index[9]= 19;//muon momentum
-    xtitle[9]= "Interaction position (radius) in nucleus";
-    xminrange[9]= 0;
-    xmaxrange[9]= 6;//
-    xlegmin[9]= 0.6;
-    ylegmin[9]= 0.45;
-    ymaxscale[9]= 1.2;
+    hist_index[9]= 31;//Wsq
+    xtitle[9] = "P_{#pi}(Primary - Initial) (GeV)";
+    xminrange[9]= -1.;
+    xmaxrange[9]= 1.;//
+    xlegmin[9]= 0.55;
+    ylegmin[9]= 0.65;
+    ymaxscale[9]= 5.;
     
-    
-    hist_index[10]= 21;//muon momentum
-    xtitle[10]= "No. of protons (FSI)";
-    xminrange[10]= 0;
-    xmaxrange[10]= 10;//
+    hist_index[10]= 32;//Wsq
+    xtitle[10]= "cos (#theta_{#pi}^{Primary} - #theta_{#pi}^{Initial})";
+    xminrange[10]= -1.;
+    xmaxrange[10]= 1.;//
     xlegmin[10]= 0.55;
-    ylegmin[10]= 0.45;
-    ymaxscale[10]= 1.2;
+    ylegmin[10]= 0.65;
+    ymaxscale[10]= 5.;
     
-    hist_index[11]= 12;//muon momentum
-    xtitle[11]= "Incoming nucleon cos #theta_{n}";
-    xminrange[11]= -1;
-    xmaxrange[11]= 1;//
-    xlegmin[11]= 0.45;
-    ylegmin[11]= 0.45;
-    ymaxscale[11]= 1.2;
     
+    hist_index[11]= 33;//Wsq
+    xtitle[11]= "Hadronic invariant mass W (GeV)";
+    xminrange[11]= 1.;
+    xmaxrange[11]= 2.;//
+    xlegmin[11]= 0.55;
+    ylegmin[11]= 0.65;
+    ymaxscale[11]= 5.;
+    */
   
     
     const char *colorcode[] = {
@@ -202,6 +206,7 @@
     TH1D *h_1d_comprat[NMODEL2COMP][NVAR2PLOT];
     
     for ( int ivar = 0 ; ivar < NVAR2PLOT ; ivar++ ){
+        if (ivar==4) continue;
         //new TCanvas;
         TCanvas *c1 = new TCanvas("c1","c1");
         TPad*    upperPad = new TPad("upperPad", "upperPad",
@@ -216,7 +221,6 @@
         h_1d_comp[0][ivar]->SetTitle("");
         titleStyle(h_1d_comp[0][ivar]);
         h_1d_comp[0][ivar]->SetMaximum(h_1d_comp[0][ivar]->GetMaximum()*ymaxscale[ivar]);
-        h_1d_comp[0][ivar]->SetMinimum(0);
         h_1d_comp[0][ivar]->GetXaxis()->SetRangeUser(xminrange[ivar],xmaxrange[ivar]);
         
         c1->cd();
@@ -260,20 +264,38 @@
         
         lowerPad->cd();
         lowerPad->SetBottomMargin(lowerPad->GetBottomMargin()*2.);
-        h_1d_comprat[0][ivar]->GetYaxis()->SetTitle("MC/GS");
+        h_1d_comprat[0][ivar]->GetYaxis()->SetTitle("MC/BS");
         titleStyle2x(h_1d_comprat[0][ivar],3.);
         h_1d_comprat[0][ivar]->Draw("hist");
-        h_1d_comprat[0][ivar]->GetYaxis()->SetRangeUser(0,2);
+        h_1d_comprat[0][ivar]->GetYaxis()->SetRangeUser(0,ratmax[ivar]);
         for ( int ifile = 1 ; ifile < NMODEL2COMP ; ifile++ ){
             h_1d_comprat[ifile][ivar]->Draw("hist same");
         }
         
-       // c1->Print(Form("plots/%s_%s_%s_%s_gfgnucleff.eps",neutversion_s.Data(),flavor_str[flavorindex],hist_type[hist_index[ivar]],hist_kind[topoindex]));
-        c1->Print(Form("plots/%s_%s_%s_%s_1p1hnucleff.eps",neutversion_s.Data(),flavor_str[flavorindex],hist_type[hist_index[ivar]],hist_kind[topoindex]));
+        c1->Print(Form("plots/%s_%s_%s_%s_compBSvsRS.eps",neutversion_s.Data(),flavor_str[flavorindex],hist_type[hist_index[ivar]],hist_kind[topoindex]));
         
         delete leg0;
         delete c1;
         
     }
+    
+    TFile *pfile_save = new TFile("coh_numu_neut540_bs_vs_rs_offaxis_Ctarget.root","RECREATE");
+    for ( int ifile = 0 ; ifile < NMODEL2COMP ; ifile++ ){//change to 11
+        for ( int ivar = 0 ; ivar < NVAR2PLOT ; ivar++ ){
+            if(ivar==0 || ivar==4) continue;
+            if(ifile==0)h_1d_comp[ifile][ivar] ->Write(Form("BS_%s_%s_%s",hist_kind[topoindex],hist_type[hist_index[ivar]],flavor_str[flavorindex]));
+            else h_1d_comp[ifile][ivar] ->Write(Form("RS_%s_%s_%s",hist_kind[topoindex],hist_type[hist_index[ivar]],flavor_str[flavorindex]));
+            
+        }
+    }
+    
+    for ( int ifile = 0 ; ifile < NMODEL2COMP ; ifile++ ){
+        for ( int ivar = 0 ; ivar < NVAR2PLOT ; ivar++ ){
+        if(ivar==0 || ivar==4) continue;
+        h_1d_comprat[1][ivar] ->Write(Form("RS2BSrat_%s_%s_%s",hist_kind[topoindex],hist_type[hist_index[ivar]],flavor_str[flavorindex]));
+        }
+    }
+    
+    pfile_save->Close();
     
 }

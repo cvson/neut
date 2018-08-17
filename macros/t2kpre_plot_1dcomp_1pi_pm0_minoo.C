@@ -4,20 +4,21 @@
     
     TString neutversion = "NEUT v5.4.0";
     TString neutversion_s = "neut540";
-    const Int_t NCHAN2COMP = 3;
+    const Int_t NCHAN2COMP = 4;
     TFile *pfile;
-    //pfile = new TFile("basicplotsv8add_neut540_card_5.3.6_nd5_C_1p1hCCQE_dis.root","READ");
-    pfile = new TFile("basicplot_v540_neut_5.3.6_nd2_C_GFGCCQE_dis_new.root","READ");
+    /*pfile = new TFile("basicplotsv8add_neut540_card_5.3.6_nd5_C_1p1hCCQE_1pi.root","READ");
+    TString model1pi = "GS";*/
+    pfile = new TFile("basicplotsv8add_neut542_card_5.3.6_nd5_C_GFGCCQE_minoo_1pi.root","READ");
+    TString model1pi = "Minoo";
     
     const int NFLAVOR = 6;
     const int NHIST1D = 34;
-    const int NCHANNEL = 11;
+    const int NCHANNEL = 11;//12?
     const int NHIST2D = 8;
     
-    char *model_name[NCHAN2COMP]={"All","Multi #pi (1.3 < W < 2.0 GeV)\0","DIS (2.0 GeV < W) \0" };
-    int flavorindex = 1;//for numu beam
-    int topoindex[NCHAN2COMP] = {6,3,4};//DIS and multi pion
+    char *model_name[NCHAN2COMP]={"CC 1#pi all\0","#nu_{#mu}+p #rightarrow #mu^{-} + p +#pi^{+}\0" ,"#nu_{#mu}+n #rightarrow #mu^{-} + p +#pi^{0}\0", "#nu_{#mu}+n #rightarrow #mu^{-} + n +#pi^{+}\0" };
     
+  
     
     
     
@@ -29,7 +30,7 @@
     
     char hist_kind[NCHANNEL][16]={"all\0"    ,"CCall\0"    ,"NCall\0",
         "dis21\0"   ,"dis26\0"    ,"CC1pi\0",
-        "CCDIS\0","CCCOH\0","res11\0","res12\0","res13\0"/*,"res11\0","res12\0","res13\0","dis21\0","dis26\0"*/};
+        "CCDIS\0","CCCOH\0","res11\0","res12\0","res13\0"};
     
     char hist_type[NHIST1D][16]={"enu\0"          ,"plep\0"       ,"in_nuc1_p\0",
         "in_nuc2_p\0"    ,"out_nuc1_p\0" ,"out_nuc2_p\0",
@@ -43,7 +44,7 @@
         "iniPiP\0","iniPicos\0","finPiP\0","finPicos\0","finPiPdiff\0","finPicosdiff\0","wres\0"
     };
     //to plots
-    const int NVAR2PLOT = 6;//10;
+    const int NVAR2PLOT = 12;
     TH1D *h_1d_comp[NCHAN2COMP][NVAR2PLOT];
     int hist_index[NVAR2PLOT];
     char* xtitle[NVAR2PLOT];
@@ -55,7 +56,8 @@
     
     char *ytitle = "Arbitrary unit";
     
-    
+    int flavorindex = 1;//for numu beam
+    int topoindex[NCHAN2COMP] = {5,8,9,10};//CC1pi
     //no of pion
     
     hist_index[0] = 22;
@@ -98,55 +100,63 @@
     ylegmin[4]= 0.65;
     ymaxscale[4]= 1.5;
     
-    /*hist_index[5]= 33;//Wsq
-    xtitle[5]= "W (GeV)";
-    xminrange[5]= 1.;
-    xmaxrange[5]= 4.;//
+    hist_index[5]= 27;//Wsq
+    xtitle[5]= "Primary P_{#pi} (GeV)";
+    xminrange[5]= 0.;
+    xmaxrange[5]= 1.5;//
     xlegmin[5]= 0.55;
     ylegmin[5]= 0.65;
     ymaxscale[5]= 1.5;
     
-    
-    hist_index[6]= 27;//primary pion highest momentum
-    xtitle[6]= "Primary #pi highest momentum, P_{#pi} (GeV)";
-    xminrange[6]= 0.;
-    xmaxrange[6]= 2.0;//
+    hist_index[6]= 28;//Wsq
+    xtitle[6]= "Primary cos(#theta_{#pi})";
+    xminrange[6]= -1.;
+    xmaxrange[6]= 1.;//
     xlegmin[6]= 0.55;
     ylegmin[6]= 0.65;
-    ymaxscale[6]= 1.2;
+    ymaxscale[6]= 1.5;
     
-    hist_index[7]= 28;//cos theta primary pion highest momentum
-    xtitle[7]= "Primary #pi highest momentum,cos #theta_{#pi}";
-    xminrange[7]= -1;
-    xmaxrange[7]= 1.;//
+    hist_index[7]= 29;//Wsq
+    xtitle[7]= "Final P_{#pi} (GeV)";
+    xminrange[7]= 0.;
+    xmaxrange[7]= 1.5;//
     xlegmin[7]= 0.55;
     ylegmin[7]= 0.65;
     ymaxscale[7]= 1.5;
     
-    hist_index[8]= 29;//FSI pion highest momentum
-    xtitle[8]= "FSI #pi highest momentum, P_{#pi} (GeV)";
-    xminrange[8]= 0.;
-    xmaxrange[8]= 2.0;//
+    
+    hist_index[8]= 30;//Wsq
+    xtitle[8]= "Final cos(#theta_{#pi})";
+    xminrange[8]= -1.;
+    xmaxrange[8]= 1.;//
     xlegmin[8]= 0.55;
     ylegmin[8]= 0.65;
-    ymaxscale[8]= 1.2;
+    ymaxscale[8]= 1.5;
     
-    hist_index[9]= 30;//FSI pion highest momentum
-    xtitle[9]= "FSI #pi highest momentum, cos #theta_{#pi}";
-    xminrange[9]= -1;
-    xmaxrange[9]= 1.;//
+    hist_index[9]= 31;//Wsq
+    xtitle[9] = "P_{#pi}(Primary - Initial) (GeV)";
+    xminrange[9]= -.5;
+    xmaxrange[9]= .5;//
     xlegmin[9]= 0.55;
     ylegmin[9]= 0.65;
-    ymaxscale[9]= 1.5;*/
+    ymaxscale[9]= 1.5;
+    
+    hist_index[10]= 32;//Wsq
+    xtitle[10]= "cos (#theta_{#pi}^{Primary} - #theta_{#pi}^{Initial})";
+    xminrange[10]= -1.;
+    xmaxrange[10]= 1.;//
+    xlegmin[10]= 0.55;
+    ylegmin[10]= 0.65;
+    ymaxscale[10]= 1.5;
     
     
-    /*hist_index[5]= 33;//Wsq
-    xtitle[5]= "Hadronic invariant mass W (GeV)";
-    xminrange[5]= 1.;
-    xmaxrange[5]= 2.;//
-    xlegmin[5]= 0.55;
-    ylegmin[5]= 0.65;
-    ymaxscale[5]= 1.5;*/
+    hist_index[11]= 33;//Wsq
+    xtitle[11]= "Hadronic invariant mass W (GeV)";
+    xminrange[11]= 1.;
+    xmaxrange[11]= 2.;//
+    xlegmin[11]= 0.55;
+    ylegmin[11]= 0.65;
+    ymaxscale[11]= 1.5;
     
   
     
@@ -171,9 +181,9 @@
         }
     }
     
-    cout<<"finish get plots"<<endl;
+   
     
-    TLatex *l1 = new TLatex(0.3, 0.98, Form("%s,%s",neutversion.Data(),flavor_strlatex[flavorindex]));
+    TLatex *l1 = new TLatex(0.3, 0.98, Form("%s,%s %s model",neutversion.Data(),flavor_strlatex[flavorindex],model1pi.Data()));
     l1->SetNDC();
     l1->SetTextFont(43);
     l1->SetTextSize(20);
@@ -240,7 +250,7 @@
         
         lowerPad->cd();
         lowerPad->SetBottomMargin(lowerPad->GetBottomMargin()*2.);
-        h_1d_comprat[0][ivar]->GetYaxis()->SetTitle("MC/all");
+        h_1d_comprat[0][ivar]->GetYaxis()->SetTitle("MC/1#pi all");
         titleStyle2x(h_1d_comprat[0][ivar],3.);
         h_1d_comprat[0][ivar]->Draw("hist");
         h_1d_comprat[0][ivar]->GetYaxis()->SetRangeUser(0,2);
@@ -248,7 +258,7 @@
             h_1d_comprat[ichan][ivar]->Draw("hist same");
         }
         
-        c1->Print(Form("plots/%s_histat_%s_%s_disvsmultipi.eps",neutversion_s.Data(),flavor_str[flavorindex],hist_type[hist_index[ivar]]));
+        c1->Print(Form("plots/%s_%s_%s_1pi%s_pm0.eps",neutversion_s.Data(),flavor_str[flavorindex],hist_type[hist_index[ivar]],model1pi.Data()));
         
         delete leg0;
         delete c1;

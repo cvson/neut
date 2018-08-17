@@ -2,12 +2,11 @@
     gROOT->ProcessLine(".x /Users/soncao/rootlogon.C");
     gROOT->ProcessLine(".L /Users/soncao/basicPlotUtil.C");
     
-    TString neutversion = "NEUT v5.4.0";
-    TString neutversion_s = "neut540";
+    TString neutversion = "NEUT v5.4.0, On-axis";
+    TString neutversion_s = "neut540_onaxis";
     const Int_t NCHAN2COMP = 3;
     TFile *pfile;
-    //pfile = new TFile("basicplotsv8add_neut540_card_5.3.6_nd5_C_1p1hCCQE_dis.root","READ");
-    pfile = new TFile("basicplot_v540_neut_5.3.6_nd2_C_GFGCCQE_dis_new.root","READ");
+    pfile = new TFile("basicplotsv8add_neut540_antinu_card_5.3.6_nd2_C_1p1hCCQE_dis.root","READ");
     
     const int NFLAVOR = 6;
     const int NHIST1D = 34;
@@ -15,7 +14,7 @@
     const int NHIST2D = 8;
     
     char *model_name[NCHAN2COMP]={"All","Multi #pi (1.3 < W < 2.0 GeV)\0","DIS (2.0 GeV < W) \0" };
-    int flavorindex = 1;//for numu beam
+    int flavorindex = 4;//for numubar beam
     int topoindex[NCHAN2COMP] = {6,3,4};//DIS and multi pion
     
     
@@ -43,7 +42,7 @@
         "iniPiP\0","iniPicos\0","finPiP\0","finPicos\0","finPiPdiff\0","finPicosdiff\0","wres\0"
     };
     //to plots
-    const int NVAR2PLOT = 6;//10;
+    const int NVAR2PLOT = 10;
     TH1D *h_1d_comp[NCHAN2COMP][NVAR2PLOT];
     int hist_index[NVAR2PLOT];
     char* xtitle[NVAR2PLOT];
@@ -98,7 +97,7 @@
     ylegmin[4]= 0.65;
     ymaxscale[4]= 1.5;
     
-    /*hist_index[5]= 33;//Wsq
+    hist_index[5]= 33;//Wsq
     xtitle[5]= "W (GeV)";
     xminrange[5]= 1.;
     xmaxrange[5]= 4.;//
@@ -137,7 +136,7 @@
     xmaxrange[9]= 1.;//
     xlegmin[9]= 0.55;
     ylegmin[9]= 0.65;
-    ymaxscale[9]= 1.5;*/
+    ymaxscale[9]= 1.5;
     
     
     /*hist_index[5]= 33;//Wsq

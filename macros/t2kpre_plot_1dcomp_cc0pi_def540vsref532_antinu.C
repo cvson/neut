@@ -2,7 +2,7 @@
     gROOT->ProcessLine(".x /Users/soncao/rootlogon.C");
     gROOT->ProcessLine(".L /Users/soncao/basicPlotUtil.C");
     
-    TString neutversion = "NEUT v5.4.0";
+    TString neutversion = "NEUT";
     const Int_t NMODEL2COMP = 2;
     TFile *pfile[NMODEL2COMP];
 
@@ -118,7 +118,7 @@
     ymaxscale[6]= 1.2;
     
     hist_index[7]= 10;//muon momentum
-    xtitle[7]= "Outgoing nucleon cos #theta_{n}";
+    xtitle[7]= "Incoming nucleon cos #theta_{n}";
     xminrange[7]= -1;
     xmaxrange[7]= 1;//
     xlegmin[7]= 0.55;
@@ -151,10 +151,10 @@
     ymaxscale[10]= 1.5;
     
     hist_index[11]= 12;//muon momentum
-    xtitle[11]= "Incoming nucleon cos #theta_{n}";
+    xtitle[11]= "Outgoing nucleon cos #theta_{n}";
     xminrange[11]= -1;
     xmaxrange[11]= 1;//
-    xlegmin[11]= 0.45;
+    xlegmin[11]= 0.25;
     ylegmin[11]= 0.45;
     ymaxscale[11]= 1.2;
     

@@ -2,7 +2,7 @@
     gROOT->ProcessLine(".x /Users/soncao/rootlogon.C");
     gROOT->ProcessLine(".L /Users/soncao/basicPlotUtil.C");
     
-    TString neutversion = "NEUT v5.4.0";
+    TString neutversion = "NEUT v5.4.0, On-axis";
     const Int_t NMODEL2COMP = 3;
     TFile *pfile[NMODEL2COMP];
     /*
@@ -11,23 +11,17 @@
     pfile[1] = new TFile("basicplotsv7_neut540_card_5.4.0_nd5_C_1p1hCCQE_1piRS_0piless.root","READ");
     pfile[2] = new TFile("basicplotsv7_neut540_card_5.4.0_nd5_C_1p1hCCQE_1piRS.root","READ");*/
      
-     TString neutversion_s = "neut540";
-     pfile[0] = new TFile("basicplotsv8_neut540_card_5.3.6_nd5_C_1p1hCCQE_ccqemec.root","READ");
-     pfile[1] = new TFile("basicplotsv8_neut540_card_5.3.6_nd5_C_1p1hCCQE_ccqemec_fmOFF.root","READ");
-     pfile[2] = new TFile("basicplotsv8_neut540_card_5.3.6_nd5_C_1p1hCCQE_ccqemec_pauliOFF.root","READ");
-    
-    /*TString neutversion_s = "neut540";
-    pfile[0] = new TFile("basicplotsv8_neut540_card_5.3.6_nd5_C_GFGCCQE_ccqemec.root","READ");
-    pfile[1] = new TFile("basicplotsv8_neut540_card_5.3.6_nd5_C_GFGCCQE_ccqemec_fmOFF.root","READ");
-    pfile[2] = new TFile("basicplotsv8_neut540_card_5.3.6_nd5_C_GFGCCQE_ccqemec_pauliOFF.root","READ");
-     */
-    
+     TString neutversion_s = "neut540_onaxis";
+     pfile[0] = new TFile("basicplotsv8_neut540_card_5.3.6_nd2_C_1p1hCCQE_ccqemec.root","READ");
+     pfile[1] = new TFile("basicplotsv8_neut540_card_5.3.6_nd2_C_SFCCQE_ccqemec.root","READ");
+     pfile[2] = new TFile("basicplotsv8_neut540_card_5.3.6_nd2_C_GFGCCQE_ccqemec.root","READ");
+     
     const int NFLAVOR = 6;
     const int NHIST1D = 34;
     const int NCHANNEL = 11;//12?
     const int NHIST2D = 8;
     
-    char *model_name[NMODEL2COMP]={"1p1h-default\0" ,"Fermi Momentum OFF\0", "Pauli blocking OFF\0" };
+    char *model_name[NMODEL2COMP]={"1p1h\0" ,"SF\0", "GFG\0" };
     
  
     
@@ -55,7 +49,7 @@
         "iniPiP\0","iniPicos\0","finPiP\0","finPicos\0","finPiPdiff\0","finPicosdiff\0","wres\0"
     };
     //to plots
-    const int NVAR2PLOT = 12;
+    const int NVAR2PLOT = 13;
     TH1D *h_1d_comp[NMODEL2COMP][NVAR2PLOT];
     int hist_index[NVAR2PLOT];
     char* xtitle[NVAR2PLOT];
@@ -64,6 +58,7 @@
     double xlegmin[NVAR2PLOT];
     double ylegmin[NVAR2PLOT];
     double ymaxscale[NVAR2PLOT];
+    double yratscale[NVAR2PLOT];
     
     char *ytitle = "Arbitrary unit";
     
@@ -76,8 +71,9 @@
     xminrange[0]= 0.;
     xmaxrange[0]= 2.0;//
     xlegmin[0]= 0.55;
-    ylegmin[0]= 0.65;
-    ymaxscale[0]= 1.2;
+    ylegmin[0]= 0.25;
+    ymaxscale[0]= 2;
+    yratscale[0] = 2;
     
     hist_index[1] = 7;//Q2
     xtitle[1]= "Q^{2} (GeV^{2})";
@@ -85,7 +81,8 @@
     xmaxrange[1]= 2.0;//
     xlegmin[1]= 0.55;
     ylegmin[1]= 0.65;
-    ymaxscale[1]= 1.2;
+    ymaxscale[1]= 2;
+    yratscale[1] = 2;
     
     hist_index[2]= 1;//muon momentum
     xtitle[2]= "P_{#mu} (GeV)";
@@ -93,7 +90,8 @@
     xmaxrange[2]= 2.0;//
     xlegmin[2]= 0.55;
     ylegmin[2]= 0.65;
-    ymaxscale[2]= 1.2;
+    ymaxscale[2]= 2;
+    yratscale[2] = 2;
     
     hist_index[3]= 6;//muon momentum
     xtitle[3]= "cos #theta_{#mu}";
@@ -101,7 +99,8 @@
     xmaxrange[3]= 1.;//
     xlegmin[3]= 0.55;
     ylegmin[3]= 0.65;
-    ymaxscale[3]= 1.2;
+    ymaxscale[3]= 3;
+    yratscale[3] = 2;
     
     hist_index[4]= 2;//muon momentum
     xtitle[4]= "Incoming nucleon P_{n} (GeV)";
@@ -109,7 +108,8 @@
     xmaxrange[4]= 0.5;//
     xlegmin[4]= 0.55;
     ylegmin[4]= 0.65;
-    ymaxscale[4]= 1.2;
+    ymaxscale[4]= 4.;
+    yratscale[4] = 4;
     
     hist_index[5]= 4;//muon momentum
     xtitle[5]= "Outgoing nucleon P_{n} (GeV)";
@@ -117,23 +117,26 @@
     xmaxrange[5]= 2.;//
     xlegmin[5]= 0.55;
     ylegmin[5]= 0.65;
-    ymaxscale[5]= 1.2;
+    ymaxscale[5]= 2;
+    yratscale[5] = 2;
     
     hist_index[6]= 8;//muon momentum
     xtitle[6]= "Incoming nucleon cos #theta_{n}";
     xminrange[6]= -1;
     xmaxrange[6]= 1;//
     xlegmin[6]= 0.55;
-    ylegmin[6]= 0.45;
-    ymaxscale[6]= 1.2;
+    ylegmin[6]= 0.25;
+    ymaxscale[6]= 2;
+    yratscale[6] = 2;
     
     hist_index[7]= 10;//muon momentum
-    xtitle[7]= "Outgoing nucleon cos #theta_{n}";
+    xtitle[7]= "Incoming nucleon cos #phi_{Lab}";
     xminrange[7]= -1;
     xmaxrange[7]= 1;//
     xlegmin[7]= 0.55;
-    ylegmin[7]= 0.45;
-    ymaxscale[7]= 1.2;
+    ylegmin[7]= 0.25;
+    ymaxscale[7]= 2;
+    yratscale[7] = 2;
     
     hist_index[8]= 16;//muon momentum
     xtitle[8]= "Rescattering nucleon (FSI) P_{n} (GeV)";
@@ -141,7 +144,8 @@
     xmaxrange[8]= 2;//
     xlegmin[8]= 0.55;
     ylegmin[8]= 0.45;
-    ymaxscale[8]= 1.2;
+    ymaxscale[8]= 2;
+    yratscale[8] = 2;
     
     hist_index[9]= 19;//muon momentum
     xtitle[9]= "Interaction position (radius) in nucleus";
@@ -149,7 +153,8 @@
     xmaxrange[9]= 6;//
     xlegmin[9]= 0.6;
     ylegmin[9]= 0.45;
-    ymaxscale[9]= 1.2;
+    ymaxscale[9]= 2;
+    yratscale[9] = 2;
     
     
     hist_index[10]= 21;//muon momentum
@@ -158,15 +163,26 @@
     xmaxrange[10]= 10;//
     xlegmin[10]= 0.55;
     ylegmin[10]= 0.45;
-    ymaxscale[10]= 1.2;
+    ymaxscale[10]= 2;
+    yratscale[10] = 2;
     
     hist_index[11]= 12;//muon momentum
-    xtitle[11]= "Incoming nucleon cos #theta_{n}";
+    xtitle[11]= "Outgoing nucleon cos #theta_{n}";
     xminrange[11]= -1;
     xmaxrange[11]= 1;//
     xlegmin[11]= 0.45;
     ylegmin[11]= 0.45;
-    ymaxscale[11]= 1.2;
+    ymaxscale[11]= 2;
+    yratscale[11] = 2;
+    
+    hist_index[12]= 14;//muon momentum
+    xtitle[12]= "Outgoing nucleon cos #phi_{Lab}";
+    xminrange[12]= -1;
+    xmaxrange[12]= 1;//
+    xlegmin[12]= 0.45;
+    ylegmin[12]= 0.25;
+    ymaxscale[12]= 2;
+    yratscale[12] = 2;
     
   
     
@@ -260,16 +276,15 @@
         
         lowerPad->cd();
         lowerPad->SetBottomMargin(lowerPad->GetBottomMargin()*2.);
-        h_1d_comprat[0][ivar]->GetYaxis()->SetTitle("MC/GS");
+        h_1d_comprat[0][ivar]->GetYaxis()->SetTitle("MC/1p1h");
         titleStyle2x(h_1d_comprat[0][ivar],3.);
         h_1d_comprat[0][ivar]->Draw("hist");
-        h_1d_comprat[0][ivar]->GetYaxis()->SetRangeUser(0,2);
+        h_1d_comprat[0][ivar]->GetYaxis()->SetRangeUser(0,yratscale[ivar]);
         for ( int ifile = 1 ; ifile < NMODEL2COMP ; ifile++ ){
             h_1d_comprat[ifile][ivar]->Draw("hist same");
         }
         
-       // c1->Print(Form("plots/%s_%s_%s_%s_gfgnucleff.eps",neutversion_s.Data(),flavor_str[flavorindex],hist_type[hist_index[ivar]],hist_kind[topoindex]));
-        c1->Print(Form("plots/%s_%s_%s_%s_1p1hnucleff.eps",neutversion_s.Data(),flavor_str[flavorindex],hist_type[hist_index[ivar]],hist_kind[topoindex]));
+        c1->Print(Form("plots/%s_%s_%s_%s_3models.eps",neutversion_s.Data(),flavor_str[flavorindex],hist_type[hist_index[ivar]],hist_kind[topoindex]));
         
         delete leg0;
         delete c1;

@@ -2,7 +2,7 @@
     gROOT->ProcessLine(".x /Users/soncao/rootlogon.C");
     gROOT->ProcessLine(".L /Users/soncao/basicPlotUtil.C");
     
-    //TString neutversion = "NEUT v5.4.0";
+    TString neutversion = "NEUT v5.4.0";
     
     //for CC 1pion resonance
 
@@ -29,15 +29,15 @@
     //int sampleindex = 3;//ccqe 5 for cc1pi
     TFile *pfile = new TFile("basicplotsv8_neut540_antinu_card_5.3.6_nd5_C_1p1hCCQE_ccqemec.root","READ");
     */
-    /*TString neutversion_s = "neut540_default";
+    TString neutversion_s = "neut540_default";
     TString nuclearmodel_s = "(1p1h CCQE, GS CC1#pi)";
-    TFile *pfile = new TFile("basicplotsv8_neut540_antinu_card_5.4.0_nd5_C_1p1hCCQE_default.root","READ");*/
+    TFile *pfile = new TFile("basicplotsv8_neut540_antinu_card_5.4.0_nd5_C_1p1hCCQE_default.root","READ");
     
-    TString neutversion = "NEUT v5.3.2";
+    /*TString neutversion = "NEUT v5.3.2";
     TString neutversion_s = "neut532_rfgrpa";
     TString nuclearmodel_s = "(RFG+RPA CCQE, GS CC1#pi)";
-    TFile *pfile = new TFile("basicplotsv8_neut532_antinu_card_5.3.6_nd5_C_GFGCCQErpa.root","READ");
-    int sampleindex = 8;
+    TFile *pfile = new TFile("basicplotsv8_neut532_antinu_card_5.3.6_nd5_C_GFGCCQErpa.root","READ");*/
+    int sampleindex = 1;
 
     
     /*TString neutversion_s = "neut540_1piRS_histat";
